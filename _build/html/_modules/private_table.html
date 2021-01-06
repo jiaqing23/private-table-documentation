@@ -32,7 +32,6 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -177,16 +176,17 @@
 <span class="sd">    Differentially private mechanisms for a data table.</span>
 
 <span class="sd">    Supported statistical functions:</span>
-<span class="sd">    </span>
-<span class="sd">    - mean: the private mean</span>
+<span class="sd">        - mean: the private mean.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">data_domains</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataDomain</span><span class="p">],</span> <span class="n">total_privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">,</span> <span class="n">delta_prime</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param dataframe: The data source</span>
-<span class="sd">        :param data_domains: Specify the set of all posible value for each data column. It is a map from `column_name` to a `data_domain`.</span>
-<span class="sd">        :param total_privacy_budget: The total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</span>
+        <span class="sd">&quot;&quot;&quot;Create a private data table.</span>
+
+<span class="sd">        args:</span>
+<span class="sd">            - dataframe (DataFrame): the data source (expected a pandas dataframe).</span>
+<span class="sd">            - data_domains (Dict[str, DataDomain]): specify the set of all posible value for each data column. It is a map from `column_name` to a `data_domain`.</span>
+<span class="sd">            - total_privacy_budget (float): the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dataframe</span> <span class="o">=</span> <span class="n">dataframe</span>
@@ -202,11 +202,14 @@
                 <span class="sa">f</span><span class="s1">&#39;  Privacy budget : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">privacy_budget_tracker</span><span class="o">.</span><span class="n">total_privacy_budget</span><span class="si">}</span><span class="s1">,</span><span class="se">\n</span><span class="s1">&#39;</span>
                 <span class="sa">f</span><span class="s1">&#39;  Privacy loss   : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">privacy_budget_tracker</span><span class="o">.</span><span class="n">consumed_privacy_budget</span><span class="si">}</span><span class="se">\n</span><span class="s1">)&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PrivateTable.check_data_domains"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.check_data_domains">[docs]</a>    <span class="k">def</span> <span class="nf">check_data_domains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domains</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataDomain</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="PrivateTable.check_data_domains"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.check_data_domains">[docs]</a>    <span class="k">def</span> <span class="nf">check_data_domains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domains</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataDomain</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;Check if data in private columns are belong to the data domain `domains`.</span>
 
-<span class="sd">        :param domains: Data domain specifications</span>
-<span class="sd">        :return: `True` if values in the private table belonging to the `domains`, otherwise `False`</span>
+<span class="sd">        args:</span>
+<span class="sd">            - domains (dict[str, DataDomain]): data domain specifications.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - whether values in the private table belonging to the `domains`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataframe</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">domains</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">contains</span><span class="p">)):</span>
@@ -216,9 +219,12 @@
 <div class="viewcode-block" id="PrivateTable.mean"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Return a private mean using Laplace mechanism.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private mean of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span><span class="p">(</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">delta</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
@@ -237,9 +243,12 @@
 <div class="viewcode-block" id="PrivateTable.gaussian_mean"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.gaussian_mean">[docs]</a>    <span class="k">def</span> <span class="nf">gaussian_mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Return a private mean using Gaussian mechanism.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private mean of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span>
@@ -255,11 +264,14 @@
         <span class="k">return</span> <span class="n">noisy_mean</span></div>
 
 <div class="viewcode-block" id="PrivateTable.std"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return a standard deviation.</span>
+        <span class="sd">&quot;&quot;&quot;Compute the standard deviation.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private standard deviation of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span>
@@ -277,10 +289,14 @@
 <div class="viewcode-block" id="PrivateTable.var"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Compute the variance.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private variance of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Your code here</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span>
         <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
@@ -297,10 +313,14 @@
 <div class="viewcode-block" id="PrivateTable.min"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.min">[docs]</a>    <span class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Compute the minimum.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private minimum of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Your code here</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span>
         <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
@@ -317,9 +337,12 @@
 <div class="viewcode-block" id="PrivateTable.max"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.max">[docs]</a>    <span class="k">def</span> <span class="nf">max</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Compute the maximum.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private maximum of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Your code here</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
@@ -338,9 +361,12 @@
 <div class="viewcode-block" id="PrivateTable.median"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.median">[docs]</a>    <span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Compute the median.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private median of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Your code here</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
@@ -359,9 +385,12 @@
 <div class="viewcode-block" id="PrivateTable.mode"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Compute the mode.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private mode of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span>
@@ -383,9 +412,12 @@
 <div class="viewcode-block" id="PrivateTable.cat_hist"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.cat_hist">[docs]</a>    <span class="k">def</span> <span class="nf">cat_hist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Compute the histogram for a categorical column.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private histogram of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span>
@@ -399,12 +431,15 @@
         <span class="k">return</span> <span class="n">noisy_hist</span></div>
 
 <div class="viewcode-block" id="PrivateTable.num_hist"><a class="viewcode-back" href="../api/private_table/index.html#private_table.PrivateTable.num_hist">[docs]</a>    <span class="k">def</span> <span class="nf">num_hist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bins</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Compute the histogram for a numerical column.</span>
+        <span class="sd">&quot;&quot;&quot;Compute the histogram for a categorical column.</span>
 
-<span class="sd">        :param column: Name of the selected column</span>
-<span class="sd">        :param bins: Bins of histogram</span>
-<span class="sd">        :param privacy_budget: Privacy budget</span>
-<span class="sd">        :return: The private histogram of a column</span>
+<span class="sd">        args:</span>
+<span class="sd">            - columne: name of the selected column.</span>
+<span class="sd">            - bins: bins of histogram</span>
+<span class="sd">            - privacy: privacy budget.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            - the private mean of a column.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Column `</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">`is not exists.&#39;</span>
         <span class="k">assert</span> <span class="n">column</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_domains</span>

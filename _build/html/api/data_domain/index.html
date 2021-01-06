@@ -32,7 +32,6 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -181,36 +180,22 @@
 <dd><p>A list of discrete values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>values</strong> (<em>Iterable</em><em>[</em><em>Any</em><em>]</em>) – A list of labels represent the catogotical data.</p>
+<dd class="field-odd"><p><strong>values</strong> (<em>Iterable</em><em>[</em><em>Any</em><em>]</em>) – </p>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="data_domain.CategoricalDataDomain.contains">
-<code class="sig-name descname">contains</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#CategoricalDataDomain.contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_domain.CategoricalDataDomain.contains" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Any</em><em>]</em>) – Value to be checked.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>True</cite> if value contained in the data domain, <cite>False</cite> otherwise</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt id="data_domain.DataDomain">
 <em class="property">class </em><code class="sig-name descname">DataDomain</code><a class="reference internal" href="../../_modules/data_domain.html#DataDomain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_domain.DataDomain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representing the set of all possible values for a column in the private table.</p>
-<p>There are two sub-types:</p>
-<ul class="simple">
-<li><p>RealDataDomain: A range of real value [left, right]</p></li>
-<li><p>CategoricalDataDomain: A list of discrete values [a, b, c, d]</p></li>
+<dl class="simple">
+<dt>There are two sub-types:</dt><dd><ul class="simple">
+<li><p>RealDataDomain: a range of real value [left, right]</p></li>
+<li><p>CategoricalDataDomain: a list of discrete values [a, b, c, d]</p></li>
 </ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
@@ -220,27 +205,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lower_bound</strong> (<em>float</em>) – Lower bound of data domain</p></li>
-<li><p><strong>upper_bound</strong> (<em>float</em>) – Upper bound of data domain</p></li>
+<li><p><strong>lower_bound</strong> (<em>float</em>) – </p></li>
+<li><p><strong>upper_bound</strong> (<em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="data_domain.RealDataDomain.contains">
-<code class="sig-name descname">contains</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#RealDataDomain.contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_domain.RealDataDomain.contains" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Any</em><em>]</em>) – Value to be checked.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>True</cite> if value contained in the data domain, <cite>False</cite> otherwise</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </div>

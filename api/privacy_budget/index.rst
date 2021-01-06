@@ -6,7 +6,7 @@
 .. autosummary:: 
    :nosignatures:
    
-   DataDomain
+   PrivacyBudget
    combine_privacy_losses
 
 .. automodule:: privacy_budget

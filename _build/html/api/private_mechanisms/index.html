@@ -32,6 +32,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -167,13 +168,13 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#private_mechanisms.laplace_mechanism" title="private_mechanisms.laplace_mechanism"><code class="xref py py-obj docutils literal notranslate"><span class="pre">laplace_mechanism</span></code></a></p></td>
-<td><p>Differentially private Laplace mechanism. Add Laplacian noise to the value:</p></td>
+<td><p>Differentially private Laplace mechanism.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#private_mechanisms.gaussian_mechanism" title="private_mechanisms.gaussian_mechanism"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_mechanism</span></code></a></p></td>
-<td><p>Differentially private Gaussian mechanism. Add Gaussian noise to the value:</p></td>
+<td><p>Differentially private Gaussian mechanism.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#private_mechanisms.histogram_mechanism" title="private_mechanisms.histogram_mechanism"><code class="xref py py-obj docutils literal notranslate"><span class="pre">histogram_mechanism</span></code></a></p></td>
-<td><p>Differentially private histogram mechanism. Add Laplacian noise to the value:</p></td>
+<td><p>Differentially private histogram mechanism.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#private_mechanisms.exponential_mechanism" title="private_mechanisms.exponential_mechanism"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponential_mechanism</span></code></a></p></td>
 <td><p>Differentially private exponantial mechanism. Each keys sampling by probability proportional to:</p></td>
@@ -194,7 +195,7 @@
 <li><p><strong>x</strong> (<em>-</em>) – a sensitive data (float/vector/array).</p></li>
 <li><p><strong>score_function</strong> (<em>-</em>) – a function to receive <cite>x</cite> and return a dictionary with items {<cite>element</cite>: <cite>score</cite>}</p></li>
 <li><p><strong>sensitivity</strong> (<em>-</em>) – the global sensitivity of <cite>x</cite>.</p></li>
-<li><p><strong>privacy_budget</strong> (<em>-</em>) – the privacy privacy used for the outputs.</p></li>
+<li><p><strong>privacy_budget</strong> (<em>-</em>) – the privacy budget used for the outputs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -212,27 +213,23 @@
 <dl class="py function">
 <dt id="private_mechanisms.gaussian_mechanism">
 <code class="sig-name descname">gaussian_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">sensitivity</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#gaussian_mechanism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_mechanisms.gaussian_mechanism" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Differentially private Gaussian mechanism. Add Gaussian noise to the value:</dt><dd><p>x + Normal(loc=0, scale=np.sqrt(2*np.log(1.25/delta)*sensitivity**2/epsilon**2)</p>
-</dd>
-</dl>
-<p>The result guarantees <cite>privacy_budget</cite>-differential privacy.</p>
+<dd><p>Differentially private Gaussian mechanism. Add Gaussian noise to the value:</p>
+<div class="math notranslate nohighlight">
+\[x + Normal\left(\mu=0, \sigma=\frac{\sqrt{2\log(1.25/\delta)}\Delta f}{\epsilon} \right)\]</div>
+<p>The result guarantees <span class="math notranslate nohighlight">\((\epsilon,\delta)\)</span>-differential privacy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>-</em>) – a sensitive data (float/vector/array).</p></li>
-<li><p><strong>sensitivity</strong> (<em>-</em>) – the global sensitivity of <cite>x</cite>.</p></li>
-<li><p><strong>privacy_budget</strong> (<em>-</em>) – the privacy privacy used for the outputs.</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>, </em><em>numpy.ndarray</em><em>]</em>) – A sensitive data</p></li>
+<li><p><strong>sensitivity</strong> (<em>float</em>) – The global sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,\delta)\)</span> used for the outputs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The noisy data</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the noisy data.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -240,27 +237,23 @@
 <dl class="py function">
 <dt id="private_mechanisms.histogram_mechanism">
 <code class="sig-name descname">histogram_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#histogram_mechanism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_mechanisms.histogram_mechanism" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Differentially private histogram mechanism. Add Laplacian noise to the value:</dt><dd><p>x + Laplace(loc=0, scale=sensitivity/privacy_buget)</p>
-</dd>
-</dl>
-<p>The result guarantees <cite>privacy_budget</cite>-differential privacy.</p>
+<dd><p>Differentially private histogram mechanism. Add Laplacian noise to the value:</p>
+<div class="math notranslate nohighlight">
+\[x + Laplace\left(\mu=0, \sigma=\frac{\Delta f}{\epsilon}\right)\]</div>
+<p>The result guarantees <span class="math notranslate nohighlight">\((\epsilon,0)\)</span>-differential privacy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>-</em>) – a sensitive data (float/vector/array).</p></li>
-<li><p><strong>sensitivity</strong> (<em>-</em>) – the global sensitivity of <cite>x</cite>.</p></li>
-<li><p><strong>privacy_budget</strong> (<em>-</em>) – the privacy privacy used for the outputs.</p></li>
+<li><p><strong>x</strong> (<em>numpy.ndarray</em>) – A sensitive data</p></li>
+<li><p><strong>sensitivity</strong> – The global sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,0)\)</span> used for the outputs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>numpy.ndarray</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The noisy data</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the noisy data.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -268,27 +261,23 @@
 <dl class="py function">
 <dt id="private_mechanisms.laplace_mechanism">
 <code class="sig-name descname">laplace_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">sensitivity</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#laplace_mechanism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_mechanisms.laplace_mechanism" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Differentially private Laplace mechanism. Add Laplacian noise to the value:</dt><dd><p>x + Laplace(loc=0, scale=sensitivity/privacy_buget)</p>
-</dd>
-</dl>
-<p>The result guarantees <cite>privacy_budget</cite>-differential privacy.</p>
+<dd><p>Differentially private Laplace mechanism. Add Laplacian noise to the value:</p>
+<div class="math notranslate nohighlight">
+\[x + Laplace\left(\mu=0, \sigma=\frac{\Delta f}{\epsilon}\right)\]</div>
+<p>The result guarantees <span class="math notranslate nohighlight">\((\epsilon,0)\)</span>-differential privacy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>-</em>) – a sensitive data (float/vector/array).</p></li>
-<li><p><strong>sensitivity</strong> (<em>-</em>) – the global sensitivity of <cite>x</cite>.</p></li>
-<li><p><strong>privacy_budget</strong> (<em>-</em>) – the privacy privacy used for the outputs.</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>, </em><em>numpy.ndarray</em><em>]</em>) – A sensitive data</p></li>
+<li><p><strong>sensitivity</strong> (<em>float</em>) – The global sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,0)\)</span> used for the outputs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The noisy data</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the noisy data.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>

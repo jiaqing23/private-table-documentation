@@ -6,7 +6,7 @@ from typing import List
 
 
 class PrivacyBudget:
-    """A (epsilon, delta) privacy budget class with useful operators:
+    """A :math:`(\epsilon,\delta)`-privacy budget class with useful operators:
 
     - `less than or equal to` operator.
     - `add` operator.
@@ -14,6 +14,12 @@ class PrivacyBudget:
     """
 
     def __init__(self, epsilon: float, delta: float = 0.):
+        """
+        :param epsilon: Value of epsilon :math:`\epsilon`
+        :type epsilon: float
+        :param delta: Value of delta :math:`\delta`, defaults to 0
+        :type delta: float, optional
+        """
         assert epsilon >= 0, "expecting a non-negative value."
         assert delta >= 0, "expecting a non-negative value."
         self.epsilon = epsilon
@@ -40,11 +46,8 @@ class PrivacyBudget:
 def combine_privacy_losses(losses: List[PrivacyBudget]) -> PrivacyBudget:
     """Use Theorem 3.16 in The Algorithmic Foundations of Differential Privacy to compute the total privacy loss.
 
-    args:
-        - losses: list of privacy losses.
-
-    outputs:
-        - the total privacy loss.
+    :param losses: List of privacy losses
+    :return: The total privacy loss
     """
     e = [(x+y) for (x, y) in zip(*losses)]  # type: ignore
     return PrivacyBudget(*e)

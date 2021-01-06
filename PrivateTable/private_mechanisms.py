@@ -11,17 +11,16 @@ from utils import check_positive
 
 def laplace_mechanism(x: Union[int, float, ndarray], sensitivity: float, privacy_budget: PrivacyBudget) -> Union[float, ndarray]:
     """Differentially private Laplace mechanism. Add Laplacian noise to the value:
-            x + Laplace(loc=0, scale=sensitivity/privacy_buget)
 
-    The result guarantees `privacy_budget`-differential privacy.
+    .. math::
+            x + Laplace\left(\mu=0, \sigma=\\frac{\Delta f}{\epsilon}\\right)
 
-    args:
-        - x (ndarray): a sensitive data (float/vector/array).
-        - sensitivity: the global sensitivity of `x`.
-        - privacy_budget: the privacy privacy used for the outputs.
+    The result guarantees :math:`(\epsilon,0)`-differential privacy.
 
-    outputs:
-        - the noisy data.
+    :param x: A sensitive data
+    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`
+    :param privacy_budget: The privacy budget :math:`(\epsilon,0)` used for the outputs
+    :return: The noisy data
     """
     check_positive(privacy_budget.epsilon)
     check_positive(sensitivity)
@@ -33,17 +32,16 @@ def laplace_mechanism(x: Union[int, float, ndarray], sensitivity: float, privacy
 
 def gaussian_mechanism(x: Union[int, float, ndarray], sensitivity: float, privacy_budget: PrivacyBudget) -> Union[float, ndarray]:
     """Differentially private Gaussian mechanism. Add Gaussian noise to the value:
-            x + Normal(loc=0, scale=np.sqrt(2*np.log(1.25/delta)*sensitivity**2/epsilon**2)
 
-    The result guarantees `privacy_budget`-differential privacy.
+    .. math::
+            x + Normal\left(\mu=0, \sigma=\\frac{\sqrt{2\log(1.25/\delta)}\Delta f}{\epsilon} \\right)
 
-    args:
-        - x (ndarray): a sensitive data (float/vector/array).
-        - sensitivity: the global sensitivity of `x`.
-        - privacy_budget: the privacy privacy used for the outputs.
+    The result guarantees :math:`(\epsilon,\delta)`-differential privacy.
 
-    outputs:
-        - the noisy data.
+    :param x: A sensitive data
+    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`
+    :param privacy_budget: The privacy budget :math:`(\epsilon,\delta)` used for the outputs
+    :return: The noisy data
     """
     check_positive(privacy_budget.epsilon)
     check_positive(privacy_budget.delta)
@@ -51,24 +49,23 @@ def gaussian_mechanism(x: Union[int, float, ndarray], sensitivity: float, privac
 
     shape = (1, ) if isinstance(x, (int, float)) else x.shape
     noise = normal(loc=0.,
-                   scale=np.sqrt(2 * np.log(1.25/privacy_budget.delta) * sensitivity**2 / privacy_budget.epsilon**2),
+                   scale=np.sqrt(2 * np.log(1.25/privacy_budget.delta)) * sensitivity / privacy_budget.epsilon,
                    size=shape)
     return x + noise
 
 
 def histogram_mechanism(x: ndarray, privacy_budget: PrivacyBudget) -> ndarray:
     """Differentially private histogram mechanism. Add Laplacian noise to the value:
-            x + Laplace(loc=0, scale=sensitivity/privacy_buget)
+    
+    .. math::
+            x + Laplace\left(\mu=0, \sigma=\\frac{\Delta f}{\epsilon}\\right)
 
-    The result guarantees `privacy_budget`-differential privacy.
+    The result guarantees :math:`(\epsilon,0)`-differential privacy.
 
-    args:
-        - x (ndarray): a sensitive data (float/vector/array).
-        - sensitivity: the global sensitivity of `x`.
-        - privacy_budget: the privacy privacy used for the outputs.
-
-    outputs:
-        - the noisy data.
+    :param x: A sensitive data
+    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`
+    :param privacy_budget: The privacy budget :math:`(\epsilon,0)` used for the outputs
+    :return: The noisy data
     """
     return laplace_mechanism(x=x, sensitivity=2, privacy_budget=privacy_budget)
 
@@ -83,7 +80,7 @@ def exponential_mechanism(x: ndarray, score_function: Callable[[ndarray], ndarra
         - x (ndarray): a sensitive data (float/vector/array).
         - score_function: a function to receive `x` and return a dictionary with items {`element`: `score`}
         - sensitivity: the global sensitivity of `x`.
-        - privacy_budget: the privacy privacy used for the outputs.
+        - privacy_budget: the privacy budget used for the outputs.
 
     outputs:
         - the sampled element

@@ -32,6 +32,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -167,7 +168,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a></p></td>
-<td><p>A (epsilon, delta) privacy budget class with useful operators:</p></td>
+<td><p>A <span class="math notranslate nohighlight">\((\epsilon,\delta)\)</span>-privacy budget class with useful operators:</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#privacy_budget.combine_privacy_losses" title="privacy_budget.combine_privacy_losses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combine_privacy_losses</span></code></a></p></td>
 <td><p>Use Theorem 3.16 in The Algorithmic Foundations of Differential Privacy to compute the total privacy loss.</p></td>
@@ -178,7 +179,7 @@
 <dl class="py class">
 <dt id="privacy_budget.PrivacyBudget">
 <em class="property">class </em><code class="sig-name descname">PrivacyBudget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">epsilon</span></em>, <em class="sig-param"><span class="n">delta</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/privacy_budget.html#PrivacyBudget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#privacy_budget.PrivacyBudget" title="Permalink to this definition">¶</a></dt>
-<dd><p>A (epsilon, delta) privacy budget class with useful operators:</p>
+<dd><p>A <span class="math notranslate nohighlight">\((\epsilon,\delta)\)</span>-privacy budget class with useful operators:</p>
 <ul class="simple">
 <li><p><cite>less than or equal to</cite> operator.</p></li>
 <li><p><cite>add</cite> operator.</p></li>
@@ -187,8 +188,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>epsilon</strong> (<em>float</em>) – </p></li>
-<li><p><strong>delta</strong> (<em>float</em>) – </p></li>
+<li><p><strong>epsilon</strong> (<em>float</em>) – Value of epsilon <span class="math notranslate nohighlight">\(\epsilon\)</span></p></li>
+<li><p><strong>delta</strong> (<em>float</em><em>, </em><em>optional</em>) – Value of delta <span class="math notranslate nohighlight">\(\delta\)</span>, defaults to 0</p></li>
 </ul>
 </dd>
 </dl>
@@ -200,16 +201,13 @@
 <dd><p>Use Theorem 3.16 in The Algorithmic Foundations of Differential Privacy to compute the total privacy loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>losses</strong> (<em>-</em>) – list of privacy losses.</p>
+<dd class="field-odd"><p><strong>losses</strong> (<em>List</em><em>[</em><a class="reference internal" href="#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a><em>]</em>) – List of privacy losses</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget">privacy_budget.PrivacyBudget</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The total privacy loss</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the total privacy loss.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget">privacy_budget.PrivacyBudget</a></p>
 </dd>
 </dl>
 </dd></dl>

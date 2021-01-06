@@ -11,23 +11,25 @@ from privacy_budget import PrivacyBudget
 
 
 class PrivacyBudgetTracker(ABC):
+    """Base class of privacy budget tracker.
+    """
     def __init__(self, total_privacy_budget: PrivacyBudget):
-        """Create a private budget tracker.
-
-        args:
-            - total_privacy_budget (float): the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.
+        """
+        :param total_privacy_budget: The total privacy budget that can be consumed by the private table. 
+            When is there is no privacy budget left, stop answering queries.
         """
         self.total_privacy_budget = total_privacy_budget
         self.consumed_privacy_budget = PrivacyBudget(0., 0.)
 
 
 class SimplePrivacyBudgetTracker(PrivacyBudgetTracker):
+    """Privacy budget tracker that use simple composition theorem to update consumed privacy budget.
+    """
     def update_privacy_loss(self, privacy_budget: PrivacyBudget):
         """Update the consumed privacy budget using a simple privacy composition theorem. 
         Also check if the remain privacy budget is enough for the current query.
 
-        args:
-            - privacy_budget: a (epsilon, delta) budget.
+        :param privacy_budget: A :math:`(\epsilon,\delta)`-privacy budget to be updated
         """
         e = self.consumed_privacy_budget + privacy_budget
         assert e <= self.total_privacy_budget, "there is not enough privacy budget."
@@ -36,6 +38,8 @@ class SimplePrivacyBudgetTracker(PrivacyBudgetTracker):
 
 
 class AdvancedPrivacyBudgetTracker(PrivacyBudgetTracker):
+    """Privacy budget tracker that use advance composition theorem to update consumed privacy budget.
+    """
     def update_privacy_loss(self, privacy_budget: PrivacyBudget, delta_prime: float, k: int = 1):
         assert(delta_prime > 0)
 

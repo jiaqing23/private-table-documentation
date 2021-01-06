@@ -32,6 +32,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -167,13 +168,13 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#privacy_budget_tracker.PrivacyBudgetTracker" title="privacy_budget_tracker.PrivacyBudgetTracker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PrivacyBudgetTracker</span></code></a></p></td>
-<td><p>Create a private budget tracker.</p></td>
+<td><p>Base class of privacy budget tracker.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#privacy_budget_tracker.SimplePrivacyBudgetTracker" title="privacy_budget_tracker.SimplePrivacyBudgetTracker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimplePrivacyBudgetTracker</span></code></a></p></td>
-<td><p>Create a private budget tracker.</p></td>
+<td><p>Privacy budget tracker that use simple composition theorem to update consumed privacy budget.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#privacy_budget_tracker.AdvancedPrivacyBudgetTracker" title="privacy_budget_tracker.AdvancedPrivacyBudgetTracker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AdvancedPrivacyBudgetTracker</span></code></a></p></td>
-<td><p>Create a private budget tracker.</p></td>
+<td><p>Privacy budget tracker that use advance composition theorem to update consumed privacy budget.</p></td>
 </tr>
 </tbody>
 </table>
@@ -182,10 +183,11 @@
 <dt id="privacy_budget_tracker.AdvancedPrivacyBudgetTracker">
 <em class="property">class </em><code class="sig-name descname">AdvancedPrivacyBudgetTracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">total_privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/privacy_budget_tracker.html#AdvancedPrivacyBudgetTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#privacy_budget_tracker.AdvancedPrivacyBudgetTracker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#privacy_budget_tracker.PrivacyBudgetTracker" title="privacy_budget_tracker.PrivacyBudgetTracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">privacy_budget_tracker.PrivacyBudgetTracker</span></code></a></p>
-<p>Create a private budget tracker.</p>
+<p>Privacy budget tracker that use advance composition theorem to update consumed privacy budget.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>total_privacy_budget</strong> (<em>-</em>) – the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</p>
+<dd class="field-odd"><p><strong>total_privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The total privacy budget that can be consumed by the private table.
+When is there is no privacy budget left, stop answering queries.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -194,10 +196,11 @@
 <dt id="privacy_budget_tracker.PrivacyBudgetTracker">
 <em class="property">class </em><code class="sig-name descname">PrivacyBudgetTracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">total_privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/privacy_budget_tracker.html#PrivacyBudgetTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#privacy_budget_tracker.PrivacyBudgetTracker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Create a private budget tracker.</p>
+<p>Base class of privacy budget tracker.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>total_privacy_budget</strong> (<em>-</em>) – the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</p>
+<dd class="field-odd"><p><strong>total_privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The total privacy budget that can be consumed by the private table.
+When is there is no privacy budget left, stop answering queries.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -206,10 +209,11 @@
 <dt id="privacy_budget_tracker.SimplePrivacyBudgetTracker">
 <em class="property">class </em><code class="sig-name descname">SimplePrivacyBudgetTracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">total_privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/privacy_budget_tracker.html#SimplePrivacyBudgetTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#privacy_budget_tracker.SimplePrivacyBudgetTracker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#privacy_budget_tracker.PrivacyBudgetTracker" title="privacy_budget_tracker.PrivacyBudgetTracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">privacy_budget_tracker.PrivacyBudgetTracker</span></code></a></p>
-<p>Create a private budget tracker.</p>
+<p>Privacy budget tracker that use simple composition theorem to update consumed privacy budget.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>total_privacy_budget</strong> (<em>-</em>) – the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</p>
+<dd class="field-odd"><p><strong>total_privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The total privacy budget that can be consumed by the private table.
+When is there is no privacy budget left, stop answering queries.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -219,7 +223,7 @@
 Also check if the remain privacy budget is enough for the current query.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>privacy_budget</strong> (<em>-</em>) – a (epsilon, delta) budget.</p>
+<dd class="field-odd"><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – A <span class="math notranslate nohighlight">\((\epsilon,\delta)\)</span>-privacy budget to be updated</p>
 </dd>
 </dl>
 </dd></dl>

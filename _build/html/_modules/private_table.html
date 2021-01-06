@@ -32,6 +32,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -176,7 +177,8 @@
 <span class="sd">    Differentially private mechanisms for a data table.</span>
 
 <span class="sd">    Supported statistical functions:</span>
-<span class="sd">        - mean: the private mean.</span>
+<span class="sd">    </span>
+<span class="sd">     - mean: the private mean.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -186,7 +188,7 @@
 <span class="sd">        args:</span>
 <span class="sd">            - dataframe (DataFrame): the data source (expected a pandas dataframe).</span>
 <span class="sd">            - data_domains (Dict[str, DataDomain]): specify the set of all posible value for each data column. It is a map from `column_name` to a `data_domain`.</span>
-<span class="sd">            - total_privacy_budget (float): the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</span>
+<span class="sd">            - total_privacy_budget (float): the total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dataframe</span> <span class="o">=</span> <span class="n">dataframe</span>

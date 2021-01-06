@@ -32,6 +32,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -168,23 +169,25 @@
 
 
 <div class="viewcode-block" id="PrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.PrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">PrivacyBudgetTracker</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class of privacy budget tracker.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a private budget tracker.</span>
-
-<span class="sd">        args:</span>
-<span class="sd">            - total_privacy_budget (float): the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param total_privacy_budget: The total privacy budget that can be consumed by the private table. </span>
+<span class="sd">            When is there is no privacy budget left, stop answering queries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">total_privacy_budget</span> <span class="o">=</span> <span class="n">total_privacy_budget</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="n">PrivacyBudget</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SimplePrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.SimplePrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">SimplePrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Privacy budget tracker that use simple composition theorem to update consumed privacy budget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="SimplePrivacyBudgetTracker.update_privacy_loss"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.SimplePrivacyBudgetTracker.update_privacy_loss">[docs]</a>    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update the consumed privacy budget using a simple privacy composition theorem. </span>
 <span class="sd">        Also check if the remain privacy budget is enough for the current query.</span>
 
-<span class="sd">        args:</span>
-<span class="sd">            - privacy_budget: a (epsilon, delta) budget.</span>
+<span class="sd">        :param privacy_budget: A :math:`(\epsilon,\delta)`-privacy budget to be updated</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">privacy_budget</span>
         <span class="k">assert</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_privacy_budget</span><span class="p">,</span> <span class="s2">&quot;there is not enough privacy budget.&quot;</span>
@@ -193,6 +196,8 @@
 
 
 <div class="viewcode-block" id="AdvancedPrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.AdvancedPrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">AdvancedPrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Privacy budget tracker that use advance composition theorem to update consumed privacy budget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">,</span> <span class="n">delta_prime</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">assert</span><span class="p">(</span><span class="n">delta_prime</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 

@@ -19,7 +19,8 @@ class PrivateTable:
     Differentially private mechanisms for a data table.
 
     Supported statistical functions:
-        - mean: the private mean.
+    
+     - mean: the private mean.
 
     """
 
@@ -29,7 +30,7 @@ class PrivateTable:
         args:
             - dataframe (DataFrame): the data source (expected a pandas dataframe).
             - data_domains (Dict[str, DataDomain]): specify the set of all posible value for each data column. It is a map from `column_name` to a `data_domain`.
-            - total_privacy_budget (float): the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.
+            - total_privacy_budget (float): the total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.
         """
         super().__init__()
         self._dataframe = dataframe

@@ -72,10 +72,9 @@ def histogram_mechanism(x: ndarray, privacy_budget: PrivacyBudget) -> ndarray:
 
 def exponential_mechanism(x: ndarray, score_function: Callable[[ndarray], ndarray], sensitivity: float, privacy_budget: PrivacyBudget) -> Any:
     """Differentially private exponantial mechanism. Each keys sampling by probability proportional to:
-            np.exp(epsilon*score/(2*sensitivity))
 
     .. math::
-        \exp{\\frac{\epsilon * score}{2 \Delta f}}
+        \exp\left(\\frac{\epsilon \\times score}{2 \Delta f}\\right)
 
     The result guarantees :math:`(\epsilon,\delta)`-differential privacy.
 

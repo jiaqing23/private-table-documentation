@@ -230,18 +230,17 @@
 
 <div class="viewcode-block" id="exponential_mechanism"><a class="viewcode-back" href="../api/private_mechanisms/index.html#private_mechanisms.exponential_mechanism">[docs]</a><span class="k">def</span> <span class="nf">exponential_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">score_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">ndarray</span><span class="p">],</span> <span class="n">sensitivity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Differentially private exponantial mechanism. Each keys sampling by probability proportional to:</span>
-<span class="sd">            np.exp(epsilon*score/(2*sensitivity))</span>
 
-<span class="sd">    The result guarantees `privacy_budget`-differential privacy.</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \exp\left(\\frac{\epsilon \\times score}{2 \Delta f}\\right)</span>
 
-<span class="sd">    args:</span>
-<span class="sd">        - x (ndarray): a sensitive data (float/vector/array).</span>
-<span class="sd">        - score_function: a function to receive `x` and return a dictionary with items {`element`: `score`}</span>
-<span class="sd">        - sensitivity: the global sensitivity of `x`.</span>
-<span class="sd">        - privacy_budget: the privacy budget used for the outputs.</span>
+<span class="sd">    The result guarantees :math:`(\epsilon,\delta)`-differential privacy.</span>
 
-<span class="sd">    outputs:</span>
-<span class="sd">        - the sampled element</span>
+<span class="sd">    :param x: A sensitive data</span>
+<span class="sd">    :param score_function: a function to receive `x` and return a dictionary with items {`element`: `score`}</span>
+<span class="sd">    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`</span>
+<span class="sd">    :param privacy_budget: The privacy budget :math:`(\epsilon,0)` used for the outputs</span>
+<span class="sd">    :return: The sampled element</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_positive</span><span class="p">(</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span>
     <span class="n">check_positive</span><span class="p">(</span><span class="n">sensitivity</span><span class="p">)</span>

@@ -10,11 +10,11 @@ Welcome to Private Table's documentation!
    :maxdepth: 1
    :caption: Contents
 
-   /api/data_domain/index
-   /api/privacy_budget/index
-   /api/privacy_budget_tracker/index
-   /api/private_mechanisms/index
-   /api/private_table/index
+   /api/data_domain/
+   /api/privacy_budget/
+   /api/privacy_budget_tracker/
+   /api/private_mechanisms/
+   /api/private_table/
 
 
 Indices and tables

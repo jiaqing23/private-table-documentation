@@ -1,5 +1,5 @@
 :mod:`privacy_budget_tracker`
-=====================
+=============================
 
 .. currentmodule:: privacy_budget_tracker
 

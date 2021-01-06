@@ -1,5 +1,5 @@
 :mod:`private_mechanisms`
-=====================
+=========================
 
 .. currentmodule:: private_mechanisms
 

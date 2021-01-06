@@ -28,13 +28,12 @@ class PrivateTable:
     - median
     - mode
     - histogram
-
     """
 
     def __init__(self, dataframe: DataFrame, data_domains: Dict[str, DataDomain], total_privacy_budget: PrivacyBudget, delta_prime=0.5):
         """
         :param dataframe: The data source 
-        :param- data_domains: Specify the set of all posible value for each data column. It is a map from `column_name` to a `data_domain`.
+        :param data_domains: Specify the set of all posible value for each data column. It is a map from `column_name` to a `data_domain`.
         :param total_privacy_budget: The total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.
         """
         super().__init__()
@@ -259,7 +258,7 @@ class PrivateTable:
 
     def num_hist(self, column: str, bins: Union[ndarray, List[float]], privacy_budget: PrivacyBudget) -> ndarray:
         """Compute the histogram for a categorical column.
-
+        
         :param column: Name of the selected column
         :param bins: Bins of histogram
         :param privacy_budget: Privacy budget to be used

@@ -178,18 +178,22 @@
 <p>Private Table class which uses pandas dataframe as the backend.</p>
 <p>Differentially private mechanisms for a data table.</p>
 <p>Supported statistical functions:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>mean: the private mean.</p></li>
+<ul class="simple">
+<li><p>mean</p></li>
+<li><p>std</p></li>
+<li><p>var</p></li>
+<li><p>min</p></li>
+<li><p>max</p></li>
+<li><p>median</p></li>
+<li><p>mode</p></li>
+<li><p>histogram</p></li>
 </ul>
-</div></blockquote>
-<p>Create a private data table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dataframe</strong> (<em>-</em>) – the data source (expected a pandas dataframe).</p></li>
-<li><p><strong>data_domains</strong> (<em>-</em>) – specify the set of all posible value for each data column. It is a map from <cite>column_name</cite> to a <cite>data_domain</cite>.</p></li>
-<li><p><strong>total_privacy_budget</strong> (<em>-</em>) – the total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</p></li>
+<li><p><strong>dataframe</strong> (<em>pandas.core.frame.DataFrame</em>) – The data source</p></li>
+<li><p><strong>data_domains</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="../data_domain/index.html#data_domain.DataDomain" title="data_domain.DataDomain"><em>data_domain.DataDomain</em></a><em>]</em>) – Specify the set of all posible value for each data column. It is a map from <cite>column_name</cite> to a <cite>data_domain</cite>.</p></li>
+<li><p><strong>total_privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</p></li>
 </ul>
 </dd>
 </dl>
@@ -200,20 +204,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>numpy.ndarray</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private histogram of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -224,13 +223,13 @@
 <dd><p>Check if data in private columns are belong to the data domain <cite>domains</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>domains</strong> (<em>-</em>) – data domain specifications.</p>
+<dd class="field-odd"><p><strong>domains</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="../data_domain/index.html#data_domain.DataDomain" title="data_domain.DataDomain"><em>data_domain.DataDomain</em></a><em>]</em>) – Data domain specifications</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>whether values in the private table belonging to the <cite>domains</cite>.</p></li>
-</ul>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if data in the private table belonging to the <cite>domains</cite>, <cite>False</cite> otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -242,20 +241,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private mean of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -267,20 +261,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private maximum of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -292,20 +281,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private mean of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -317,20 +301,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private median of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -342,20 +321,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private minimum of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -367,20 +341,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private mode of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -392,21 +361,16 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>bins</strong> (<em>-</em>) – bins of histogram</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>bins</strong> (<em>Union</em><em>[</em><em>numpy.ndarray</em><em>, </em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em>) – Bins of histogram</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>numpy.ndarray</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private histogram of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -418,20 +382,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private standard deviation of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -443,20 +402,15 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>columne</strong> (<em>-</em>) – name of the selected column.</p></li>
-<li><p><strong>privacy</strong> (<em>-</em>) – privacy budget.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – </p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – </p></li>
+<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private variance of the selected column</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>outputs:</dt><dd><ul class="simple">
-<li><p>the private mean of a column.</p></li>
-</ul>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>

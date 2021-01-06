@@ -38,7 +38,7 @@ class RealDataDomain(DataDomain):
         """Check if value contains in the data domain.
 
         :param value: The value to be checked
-        :return: `True` if value contains in the data domain, otherwise `False`
+        :return: `True` if value contains in the data domain, `False` otherwise
         """
         return self._lower_bound <= value <= self._upper_bound
 
@@ -64,7 +64,7 @@ class CategoricalDataDomain(DataDomain):
         """Check if value contains in the data domain.
 
         :param value: The value to be checked
-        :return: `True` if value contains in the data domain, otherwise `False`
+        :return: `True` if value contains in the data domain, `False` otherwise
         """
         return value in self._values
 

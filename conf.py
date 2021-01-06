@@ -40,6 +40,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.coverage',
     'sphinx.ext.doctest',
+    'sphinx.ext.autosummary',
     #'autoapi.extension',
 ]
 
@@ -48,7 +49,8 @@ autoapi_dirs = ['./PrivateTable/']
 autoapi_keep_files = True
 autodoc_typehints = 'description'
 autoclass_content = 'both'
-
+autosummary_generate = True
+add_module_names = False
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

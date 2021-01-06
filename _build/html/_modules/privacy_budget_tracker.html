@@ -1,37 +1,42 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>privacy_budget_tracker &mdash; PrivateTable 1.0.0 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -70,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -79,12 +85,17 @@
             
               <p class="caption"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/data_domain/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_domain</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/privacy_budget/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/privacy_budget_tracker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget_tracker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/private_mechanisms/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_mechanisms</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/private_table/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_table</span></code></a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -119,11 +130,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Module code</a> &raquo;</li>
         
@@ -155,24 +168,28 @@
 <span class="kn">from</span> <span class="nn">privacy_budget</span> <span class="kn">import</span> <span class="n">PrivacyBudget</span>
 
 
-<div class="viewcode-block" id="PrivacyBudgetTracker"><a class="viewcode-back" href="../autoapi/privacy_budget_tracker/index.html#privacy_budget_tracker.PrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">PrivacyBudgetTracker</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a private budget tracker.</span>
+<div class="viewcode-block" id="PrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.PrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">PrivacyBudgetTracker</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class of privacy budget tracker.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="sd">        args:</span>
-<span class="sd">            - total_privacy_budget (float): the total privacy privacy that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param total_privacy_budget: The total privacy budget that can be consumed by the private table. </span>
+<span class="sd">            When there is no privacy budget left, stop answering queries.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">total_privacy_budget</span> <span class="o">=</span> <span class="n">total_privacy_budget</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="n">PrivacyBudget</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="SimplePrivacyBudgetTracker"><a class="viewcode-back" href="../autoapi/privacy_budget_tracker/index.html#privacy_budget_tracker.SimplePrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">SimplePrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
-<div class="viewcode-block" id="SimplePrivacyBudgetTracker.update_privacy_loss"><a class="viewcode-back" href="../autoapi/privacy_budget_tracker/index.html#privacy_budget_tracker.SimplePrivacyBudgetTracker.update_privacy_loss">[docs]</a>    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
+<div class="viewcode-block" id="SimplePrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.SimplePrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">SimplePrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Privacy Budget Table using simple privacy composition theorem. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SimplePrivacyBudgetTracker.update_privacy_loss"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.SimplePrivacyBudgetTracker.update_privacy_loss">[docs]</a>    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update the consumed privacy budget using a simple privacy composition theorem. </span>
 <span class="sd">        Also check if the remain privacy budget is enough for the current query.</span>
 
-<span class="sd">        args:</span>
-<span class="sd">            - privacy_budget: a (epsilon, delta) budget.</span>
+<span class="sd">        :param privacy_budget: a (epsilon, delta) budget.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">privacy_budget</span>
         <span class="k">assert</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_privacy_budget</span><span class="p">,</span> <span class="s2">&quot;there is not enough privacy budget.&quot;</span>
@@ -180,8 +197,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">privacy_budget</span></div></div>
 
 
-<div class="viewcode-block" id="AdvancedPrivacyBudgetTracker"><a class="viewcode-back" href="../autoapi/privacy_budget_tracker/index.html#privacy_budget_tracker.AdvancedPrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">AdvancedPrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
-<div class="viewcode-block" id="AdvancedPrivacyBudgetTracker.update_privacy_loss"><a class="viewcode-back" href="../autoapi/privacy_budget_tracker/index.html#privacy_budget_tracker.AdvancedPrivacyBudgetTracker.update_privacy_loss">[docs]</a>    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">,</span> <span class="n">delta_prime</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="AdvancedPrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.AdvancedPrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">AdvancedPrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Privacy Budget Table using advance privacy composition theorem. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">,</span> <span class="n">delta_prime</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">assert</span><span class="p">(</span><span class="n">delta_prime</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 
         <span class="n">kfold_privacy_budget</span> <span class="o">=</span> <span class="n">PrivacyBudget</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">delta_prime</span><span class="p">))</span><span class="o">*</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span>
@@ -190,7 +211,7 @@
         <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">kfold_privacy_budget</span>
         <span class="k">assert</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_privacy_budget</span><span class="p">,</span> <span class="s2">&quot;there is not enough privacy budget.&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">kfold_privacy_budget</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">kfold_privacy_budget</span></div>
 
 <span class="c1"># consumed = (0, 0)</span>
 <span class="c1"># User 1st time query with epislon = 5, kfold_privacy_budget(k=1) = (1, 0.5)</span>
@@ -208,20 +229,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, NTU SCRiPTS
+        &#169; Copyright 2021, NTU SCRiPTS.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -229,7 +255,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

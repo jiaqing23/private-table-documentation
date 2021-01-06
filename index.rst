@@ -7,10 +7,14 @@ Welcome to Private Table's documentation!
 =========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents
 
-   /autoapi/index
+   /api/data_domain/index
+   /api/privacy_budget/index
+   /api/privacy_budget_tracker/index
+   /api/private_mechanisms/index
+   /api/private_table/index
 
 
 Indices and tables

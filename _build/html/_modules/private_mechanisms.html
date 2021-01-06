@@ -1,37 +1,42 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>private_mechanisms &mdash; PrivateTable 1.0.0 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -70,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -79,12 +85,17 @@
             
               <p class="caption"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/data_domain/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_domain</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/privacy_budget/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/privacy_budget_tracker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget_tracker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/private_mechanisms/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_mechanisms</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/private_table/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_table</span></code></a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -119,11 +130,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Module code</a> &raquo;</li>
         
@@ -154,19 +167,18 @@
 <span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">check_positive</span>
 
 
-<div class="viewcode-block" id="laplace_mechanism"><a class="viewcode-back" href="../autoapi/private_mechanisms/index.html#private_mechanisms.laplace_mechanism">[docs]</a><span class="k">def</span> <span class="nf">laplace_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">],</span> <span class="n">sensitivity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">]:</span>
+<div class="viewcode-block" id="laplace_mechanism"><a class="viewcode-back" href="../api/private_mechanisms/index.html#private_mechanisms.laplace_mechanism">[docs]</a><span class="k">def</span> <span class="nf">laplace_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">],</span> <span class="n">sensitivity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Differentially private Laplace mechanism. Add Laplacian noise to the value:</span>
-<span class="sd">            x + Laplace(loc=0, scale=sensitivity/privacy_buget)</span>
 
-<span class="sd">    The result guarantees `privacy_budget`-differential privacy.</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        x + Laplace\left(\mu=0, \sigma=\\frac{\Delta f}{\epsilon}\\right)</span>
 
-<span class="sd">    args:</span>
-<span class="sd">        - x (ndarray): a sensitive data (float/vector/array).</span>
-<span class="sd">        - sensitivity: the global sensitivity of `x`.</span>
-<span class="sd">        - privacy_budget: the privacy privacy used for the outputs.</span>
+<span class="sd">    The result guarantees (`privacy_budget`)-differential privacy.</span>
 
-<span class="sd">    outputs:</span>
-<span class="sd">        - the noisy data.</span>
+<span class="sd">    :param x: Sensitive data</span>
+<span class="sd">    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`</span>
+<span class="sd">    :param privacy_budget: The privacy budget used for the outputs</span>
+<span class="sd">    :return: The noisy data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_positive</span><span class="p">(</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span>
     <span class="n">check_positive</span><span class="p">(</span><span class="n">sensitivity</span><span class="p">)</span>
@@ -176,19 +188,18 @@
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">noise</span></div>
 
 
-<div class="viewcode-block" id="gaussian_mechanism"><a class="viewcode-back" href="../autoapi/private_mechanisms/index.html#private_mechanisms.gaussian_mechanism">[docs]</a><span class="k">def</span> <span class="nf">gaussian_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">],</span> <span class="n">sensitivity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">]:</span>
+<div class="viewcode-block" id="gaussian_mechanism"><a class="viewcode-back" href="../api/private_mechanisms/index.html#private_mechanisms.gaussian_mechanism">[docs]</a><span class="k">def</span> <span class="nf">gaussian_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">],</span> <span class="n">sensitivity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Differentially private Gaussian mechanism. Add Gaussian noise to the value:</span>
-<span class="sd">            x + Normal(loc=0, scale=np.sqrt(2*np.log(1.25/delta)*sensitivity**2/epsilon**2)</span>
 
-<span class="sd">    The result guarantees `privacy_budget`-differential privacy.</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        x + Normal\left(\mu=0, \sigma=\\frac{\sqrt{2\log(1.25/\delta)}{\Delta f}}{\epsilon}\\right)</span>
 
-<span class="sd">    args:</span>
-<span class="sd">        - x (ndarray): a sensitive data (float/vector/array).</span>
-<span class="sd">        - sensitivity: the global sensitivity of `x`.</span>
-<span class="sd">        - privacy_budget: the privacy privacy used for the outputs.</span>
+<span class="sd">    The result guarantees (`privacy_budget`)-differential privacy.</span>
 
-<span class="sd">    outputs:</span>
-<span class="sd">        - the noisy data.</span>
+<span class="sd">    :param x: Sensitive data</span>
+<span class="sd">    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`</span>
+<span class="sd">    :param privacy_budget: The privacy budget used for the outputs</span>
+<span class="sd">    :return: The noisy data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_positive</span><span class="p">(</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span>
     <span class="n">check_positive</span><span class="p">(</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">delta</span><span class="p">)</span>
@@ -196,43 +207,43 @@
 
     <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">noise</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
-                   <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.25</span><span class="o">/</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">delta</span><span class="p">)</span> <span class="o">*</span> <span class="n">sensitivity</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span>
+                   <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.25</span><span class="o">/</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">delta</span><span class="p">))</span> <span class="o">*</span> <span class="n">sensitivity</span> <span class="o">/</span> <span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span><span class="p">,</span>
                    <span class="n">size</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">noise</span></div>
 
 
-<div class="viewcode-block" id="histogram_mechanism"><a class="viewcode-back" href="../autoapi/private_mechanisms/index.html#private_mechanisms.histogram_mechanism">[docs]</a><span class="k">def</span> <span class="nf">histogram_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
+<div class="viewcode-block" id="histogram_mechanism"><a class="viewcode-back" href="../api/private_mechanisms/index.html#private_mechanisms.histogram_mechanism">[docs]</a><span class="k">def</span> <span class="nf">histogram_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Differentially private histogram mechanism. Add Laplacian noise to the value:</span>
-<span class="sd">            x + Laplace(loc=0, scale=sensitivity/privacy_buget)</span>
+<span class="sd">            x + Laplace(\mu=0, \sigma=sensitivity/privacy_buget)</span>
 
-<span class="sd">    The result guarantees `privacy_budget`-differential privacy.</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        x + Laplace\left(\mu=0, \sigma=\\frac{\Delta f}{\epsilon}\\right)</span>
 
-<span class="sd">    args:</span>
-<span class="sd">        - x (ndarray): a sensitive data (float/vector/array).</span>
-<span class="sd">        - sensitivity: the global sensitivity of `x`.</span>
-<span class="sd">        - privacy_budget: the privacy privacy used for the outputs.</span>
+<span class="sd">    The result guarantees (`privacy_budget`)-differential privacy.</span>
 
-<span class="sd">    outputs:</span>
-<span class="sd">        - the noisy data.</span>
+<span class="sd">    :param x: Sensitive data</span>
+<span class="sd">    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`</span>
+<span class="sd">    :param privacy_budget: The privacy budget used for the outputs</span>
+<span class="sd">    :return: The noisy data</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">laplace_mechanism</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">sensitivity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="o">=</span><span class="n">privacy_budget</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="exponential_mechanism"><a class="viewcode-back" href="../autoapi/private_mechanisms/index.html#private_mechanisms.exponential_mechanism">[docs]</a><span class="k">def</span> <span class="nf">exponential_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">score_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">ndarray</span><span class="p">],</span> <span class="n">sensitivity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="exponential_mechanism"><a class="viewcode-back" href="../api/private_mechanisms/index.html#private_mechanisms.exponential_mechanism">[docs]</a><span class="k">def</span> <span class="nf">exponential_mechanism</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">score_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">ndarray</span><span class="p">],</span> <span class="n">sensitivity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Differentially private exponantial mechanism. Each keys sampling by probability proportional to:</span>
-<span class="sd">            np.exp(epsilon*score/(2*sensitivity))</span>
 
-<span class="sd">    The result guarantees `privacy_budget`-differential privacy.</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \exp\left(\\frac{\epsilon * score}{2\Delta f}\\right)</span>
 
-<span class="sd">    args:</span>
-<span class="sd">        - x (ndarray): a sensitive data (float/vector/array).</span>
-<span class="sd">        - score_function: a function to receive `x` and return a dictionary with items {`element`: `score`}</span>
-<span class="sd">        - sensitivity: the global sensitivity of `x`.</span>
-<span class="sd">        - privacy_budget: the privacy privacy used for the outputs.</span>
+<span class="sd">    The result guarantees (`privacy_budget`)-differential privacy.</span>
 
-<span class="sd">    outputs:</span>
-<span class="sd">        - the sampled element</span>
+<span class="sd">    :param x: Sensitive data</span>
+<span class="sd">    :param score_function: A function to receive `x` and return a dictionary with items {`element`: `score`}</span>
+<span class="sd">    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`</span>
+<span class="sd">    :param privacy_budget: The privacy budget used for the outputs</span>
+<span class="sd">    :return: The sampled element</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">check_positive</span><span class="p">(</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span>
     <span class="n">check_positive</span><span class="p">(</span><span class="n">sensitivity</span><span class="p">)</span>
 
@@ -247,20 +258,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2021, NTU SCRiPTS
+        &#169; Copyright 2021, NTU SCRiPTS.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -268,7 +284,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

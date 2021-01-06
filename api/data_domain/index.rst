@@ -6,7 +6,7 @@
 .. autosummary:: 
    :nosignatures:
    
-   PrivacyBudget
+   DataDomain
    RealDataDomain
    CategoricalDataDomain
 

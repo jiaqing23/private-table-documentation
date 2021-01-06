@@ -77,5 +77,5 @@ html_static_path = ['_static']
 autodoc_mock_imports = []
 
 
-console.log("#############################"*10)
-console.log(os.system("ls"))
+print("#############################"*10)
+print(os.system("ls"))

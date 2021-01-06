@@ -74,16 +74,16 @@ def exponential_mechanism(x: ndarray, score_function: Callable[[ndarray], ndarra
     """Differentially private exponantial mechanism. Each keys sampling by probability proportional to:
             np.exp(epsilon*score/(2*sensitivity))
 
-    The result guarantees `privacy_budget`-differential privacy.
+    .. math::
+        \exp{\\frac{\epsilon * score}{2 \Delta f}}
 
-    args:
-        - x (ndarray): a sensitive data (float/vector/array).
-        - score_function: a function to receive `x` and return a dictionary with items {`element`: `score`}
-        - sensitivity: the global sensitivity of `x`.
-        - privacy_budget: the privacy budget used for the outputs.
+    The result guarantees :math:`(\epsilon,\delta)`-differential privacy.
 
-    outputs:
-        - the sampled element
+    :param x: A sensitive data
+    :param score_function: a function to receive `x` and return a dictionary with items {`element`: `score`}
+    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`
+    :param privacy_budget: The privacy budget :math:`(\epsilon,0)` used for the outputs
+    :return: The sampled element
     """
     check_positive(privacy_budget.epsilon)
     check_positive(sensitivity)

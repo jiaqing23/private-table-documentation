@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,10 +31,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -157,20 +159,20 @@
             
   <h1>Source code for data_domain</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span>
 
 
-<div class="viewcode-block" id="DataDomain"><a class="viewcode-back" href="../api/data_domain/index.html#data_domain.DataDomain">[docs]</a><span class="k">class</span> <span class="nc">DataDomain</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="DataDomain"><a class="viewcode-back" href="../api/federated_learning/index.html#data_domain.DataDomain">[docs]</a><span class="k">class</span> <span class="nc">DataDomain</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Representing the set of all possible values for a column in the private table.</span>
 
 <span class="sd">    There are two sub-types:</span>
-<span class="sd">    </span>
+
 <span class="sd">    - RealDataDomain: a range of real value [left, right]</span>
 <span class="sd">    - CategoricalDataDomain: a list of discrete values [a, b, c, d]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
@@ -178,11 +180,11 @@
         <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="RealDataDomain"><a class="viewcode-back" href="../api/data_domain/index.html#data_domain.RealDataDomain">[docs]</a><span class="k">class</span> <span class="nc">RealDataDomain</span><span class="p">(</span><span class="n">DataDomain</span><span class="p">):</span>
+<div class="viewcode-block" id="RealDataDomain"><a class="viewcode-back" href="../api/federated_learning/index.html#data_domain.RealDataDomain">[docs]</a><span class="k">class</span> <span class="nc">RealDataDomain</span><span class="p">(</span><span class="n">DataDomain</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A range of real values: [left, right].</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param lower_bound: Lower bound of the data domain</span>
 <span class="sd">        :param upper_bound: Upper bound of the data domain</span>
@@ -192,7 +194,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_upper_bound</span> <span class="o">=</span> <span class="n">upper_bound</span>
         <span class="k">assert</span> <span class="n">lower_bound</span> <span class="o">&lt;=</span> <span class="n">upper_bound</span>
 
-<div class="viewcode-block" id="RealDataDomain.contains"><a class="viewcode-back" href="../api/data_domain/index.html#data_domain.RealDataDomain.contains">[docs]</a>    <span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="RealDataDomain.contains"><a class="viewcode-back" href="../api/federated_learning/index.html#data_domain.RealDataDomain.contains">[docs]</a>    <span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if value contains in the data domain.</span>
 
 <span class="sd">        :param value: The value to be checked</span>
@@ -203,22 +205,22 @@
     <span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_upper_bound</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lower_bound</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;real interval [</span><span class="si">{self._lower_bound}</span><span class="s1">, </span><span class="si">{self._upper_bound}</span><span class="s1">]&#39;</span></div>
 
 
-<div class="viewcode-block" id="CategoricalDataDomain"><a class="viewcode-back" href="../api/data_domain/index.html#data_domain.CategoricalDataDomain">[docs]</a><span class="k">class</span> <span class="nc">CategoricalDataDomain</span><span class="p">(</span><span class="n">DataDomain</span><span class="p">):</span>
+<div class="viewcode-block" id="CategoricalDataDomain"><a class="viewcode-back" href="../api/federated_learning/index.html#data_domain.CategoricalDataDomain">[docs]</a><span class="k">class</span> <span class="nc">CategoricalDataDomain</span><span class="p">(</span><span class="n">DataDomain</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A list of discrete values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param values: List that contains all possible values of the data domain</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CategoricalDataDomain.contains"><a class="viewcode-back" href="../api/data_domain/index.html#data_domain.CategoricalDataDomain.contains">[docs]</a>    <span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="CategoricalDataDomain.contains"><a class="viewcode-back" href="../api/federated_learning/index.html#data_domain.CategoricalDataDomain.contains">[docs]</a>    <span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if value contains in the data domain.</span>
 
 <span class="sd">        :param value: The value to be checked</span>
@@ -226,8 +228,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_values</span></div>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;a set of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="si">}</span><span class="s1">&#39;</span></div>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;a set of </span><span class="si">{self._values}</span><span class="s1">&#39;</span></div>
 </pre></div>
 
            </div>

@@ -15,6 +15,8 @@ Welcome to Private Table's documentation!
    /api/privacy_budget_tracker/index
    /api/private_mechanisms/index
    /api/private_table/index
+   /api/private_machine_learning/index
+   /api/federated_learning/index
 
 
 Indices and tables

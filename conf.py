@@ -41,13 +41,14 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.doctest',
     'sphinx.ext.autosummary',
+    'sphinx_autodoc_typehints'
     #'autoapi.extension',
 ]
 
 autoapi_type = 'python'
 autoapi_dirs = ['./PrivateTable/']
 autoapi_keep_files = True
-autodoc_typehints = 'description'
+autodoc_typehints = 'none'
 autoclass_content = 'both'
 autosummary_generate = True
 add_module_names = False
@@ -72,6 +73,6 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-
+master_doc = 'index'
 
 autodoc_mock_imports = []

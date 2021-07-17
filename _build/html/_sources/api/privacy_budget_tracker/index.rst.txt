@@ -9,6 +9,7 @@
    PrivacyBudgetTracker
    SimplePrivacyBudgetTracker
    AdvancedPrivacyBudgetTracker
+   MomentPrivacyBudgetTracker
 
 .. automodule:: privacy_budget_tracker
    :members:

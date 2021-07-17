@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,10 +31,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -90,6 +92,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/privacy_budget_tracker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget_tracker</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/private_mechanisms/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_mechanisms</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api/private_table/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_table</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/private_machine_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_machine_learning</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/federated_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">federated_learning</span></code></a></li>
 </ul>
 
             
@@ -160,18 +164,20 @@
 <span class="sd">PrivacyBudgetTracker classes.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">privacy_budget</span> <span class="kn">import</span> <span class="n">PrivacyBudget</span>
+<span class="kn">from</span> <span class="nn">privacy_budget</span> <span class="k">import</span> <span class="n">PrivacyBudget</span>
 
+<span class="kn">from</span> <span class="nn">calculate_moment</span> <span class="k">import</span> <span class="o">*</span>
 
 <div class="viewcode-block" id="PrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.PrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">PrivacyBudgetTracker</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class of privacy budget tracker.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param total_privacy_budget: The total privacy budget that can be consumed by the private table. </span>
 <span class="sd">            When is there is no privacy budget left, stop answering queries.</span>
@@ -183,6 +189,7 @@
 <div class="viewcode-block" id="SimplePrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.SimplePrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">SimplePrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Privacy budget tracker that use simple composition theorem to update consumed privacy budget.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="SimplePrivacyBudgetTracker.update_privacy_loss"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.SimplePrivacyBudgetTracker.update_privacy_loss">[docs]</a>    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update the consumed privacy budget using a simple privacy composition theorem. </span>
 <span class="sd">        Also check if the remain privacy budget is enough for the current query.</span>
@@ -192,33 +199,55 @@
         <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">privacy_budget</span>
         <span class="k">assert</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_privacy_budget</span><span class="p">,</span> <span class="s2">&quot;there is not enough privacy budget.&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">privacy_budget</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="n">e</span></div></div>
 
 
 <div class="viewcode-block" id="AdvancedPrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.AdvancedPrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">AdvancedPrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Privacy budget tracker that use advance composition theorem to update consumed privacy budget.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">,</span> <span class="n">delta_prime</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="k">assert</span><span class="p">(</span><span class="n">delta_prime</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<div class="viewcode-block" id="AdvancedPrivacyBudgetTracker.update_privacy_loss"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.AdvancedPrivacyBudgetTracker.update_privacy_loss">[docs]</a>    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">,</span> <span class="n">delta_prime</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate and update privacy loss of multiple query with same privacy_budget.</span>
+<span class="sd">        :param privacy_budget: Privacy budget of query</span>
+<span class="sd">        :param delta_prime: Value of :math:`\epsilon&#39;`</span>
+<span class="sd">        :param k: Number of query, defaults to 1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="n">delta_prime</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Value of delta should be positive&quot;</span>
 
         <span class="n">kfold_privacy_budget</span> <span class="o">=</span> <span class="n">PrivacyBudget</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">delta_prime</span><span class="p">))</span><span class="o">*</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span>
                                              <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
                                              <span class="n">k</span><span class="o">*</span><span class="n">privacy_budget</span><span class="o">.</span><span class="n">delta</span> <span class="o">+</span> <span class="n">delta_prime</span><span class="p">)</span>
+        
         <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">kfold_privacy_budget</span>
         <span class="k">assert</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_privacy_budget</span><span class="p">,</span> <span class="s2">&quot;there is not enough privacy budget.&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">kfold_privacy_budget</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="n">e</span></div></div>
 
-<span class="c1"># consumed = (0, 0)</span>
-<span class="c1"># User 1st time query with epislon = 5, kfold_privacy_budget(k=1) = (1, 0.5)</span>
-<span class="c1"># dict = {5:1, 7:2, 3:1}</span>
-<span class="c1"># consumed += (1, 0.5)</span>
-<span class="c1"># 2nd time, kfold_privacy_budget(k=2) = (1.5,0.6)</span>
-<span class="c1"># consumed += (1.5,0.6)-(1, 0.5)</span>
-<span class="c1"># Context manager # Use max value of epsilon</span>
-<span class="c1"># 2 query with epsilon = 5</span>
+<div class="viewcode-block" id="MomentPrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.MomentPrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">MomentPrivacyBudgetTracker</span><span class="p">(</span><span class="n">PrivacyBudgetTracker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Privacy budget tracker that use moment accountant (https://arxiv.org/pdf/1607.00133.pdf) to update consumed privacy budget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="MomentPrivacyBudgetTracker.update_privacy_loss"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.MomentPrivacyBudgetTracker.update_privacy_loss">[docs]</a>    <span class="k">def</span> <span class="nf">update_privacy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampling_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">moment_order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> 
+                            <span class="n">target_eps</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">target_delta</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculate and update privacy loss. Must specify exactly either one of `target_eps` or `target_delta`.</span>
 
-<span class="c1"># Ask user ---- Advance --- delta_prime</span>
+<span class="sd">        :param sampling_ratio: Ratio of data used to total data in one step</span>
+<span class="sd">        :param sigma: Noise scale</span>
+<span class="sd">        :param steps: Number of update performed</span>
+<span class="sd">        :param moment_order: Maximum order of moment to calculate privacy budget, defaults to 32</span>
+<span class="sd">        :param target_eps: Target value of :math:`\epsilon`, defaults to None</span>
+<span class="sd">        :param target_delta: Target value of :math:`\delta`, defaults to None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">target_eps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">target_eps</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Value of epsilon should be positive&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">target_delta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">target_delta</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Value of delta should be positive&quot;</span>
+
+        <span class="n">log_moments</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">compute_log_moment</span><span class="p">(</span><span class="n">sampling_ratio</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">steps</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">moment_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+        <span class="n">privacy</span> <span class="o">=</span> <span class="n">get_privacy_spent</span><span class="p">(</span><span class="n">log_moments</span><span class="p">,</span> <span class="n">target_eps</span><span class="p">,</span> <span class="n">target_delta</span><span class="p">)</span>
+        <span class="n">privacy_budget</span> <span class="o">=</span> <span class="n">PrivacyBudget</span><span class="p">(</span><span class="n">privacy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">privacy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">+</span> <span class="n">privacy_budget</span>
+        <span class="k">assert</span> <span class="n">e</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_privacy_budget</span><span class="p">,</span> <span class="s2">&quot;there is not enough privacy budget.&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">consumed_privacy_budget</span> <span class="o">=</span> <span class="n">e</span></div></div>
 </pre></div>
 
            </div>

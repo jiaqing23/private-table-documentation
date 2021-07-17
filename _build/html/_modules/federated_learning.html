@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>federated_learning &mdash; PrivateTable 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PrivateTable
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/data_domain/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_domain</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/privacy_budget/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/privacy_budget_tracker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget_tracker</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/private_mechanisms/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_mechanisms</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/private_table/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_table</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/private_machine_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_machine_learning</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/federated_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">federated_learning</span></code></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PrivateTable</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>federated_learning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for federated_learning</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">ndarray</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">normal</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="k">import</span> <span class="n">losses</span><span class="p">,</span> <span class="n">Model</span>
+
+<div class="viewcode-block" id="FedAvgClient"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgClient">[docs]</a><span class="k">class</span> <span class="nc">FedAvgClient</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Client side of FederatedAveraging (FedAvg) algorithm (https://arxiv.org/pdf/1602.05629.pdf).</span>
+<span class="sd">    The implementation is based on Tensorflow.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Model</span><span class="p">],</span> <span class="n">loss_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">,</span> <span class="n">array</span><span class="p">],</span> <span class="n">array</span><span class="p">],</span> <span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param model_fn: Function used to create instance of model, should be the same as server.</span>
+<span class="sd">        :param loss_fn: Function that receives model and data batch, and return the loss value caluclated by tf.keras.losses.</span>
+<span class="sd">        :param data: Client&#39;s traning data. Each element represent one training sample.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model_fn</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">loss_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">()</span>
+        
+<div class="viewcode-block" id="FedAvgClient.split_data"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgClient.split_data">[docs]</a>    <span class="k">def</span> <span class="nf">split_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function used to split data into minibatches with size of minibatch_size.</span>
+
+<span class="sd">        :param minibatch_size: Size of minibatch.</span>
+<span class="sd">        :return: List of batches data. Each element in the list is list of data of one minibatch.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)]</span> <span class="o">*</span> <span class="n">minibatch_size</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">t</span> <span class="k">if</span> <span class="n">e</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">zip_longest</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span></div>
+    
+<div class="viewcode-block" id="FedAvgClient.train_step"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgClient.train_step">[docs]</a>    <span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minibatch</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">array</span><span class="p">,</span> <span class="nb">list</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Function for training the model using one minibatch.</span>
+
+<span class="sd">        :param minibatch: List of data of minibacth.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">minibatch</span><span class="p">)</span>
+            <span class="n">grads</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span></div>
+    
+<div class="viewcode-block" id="FedAvgClient.train"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgClient.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_weights</span><span class="p">:</span> <span class="n">array</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function for training the model.</span>
+
+<span class="sd">        :param global_weights: Global weights received from server.</span>
+<span class="sd">        :param minibatch_size: Size of a single minibatch.</span>
+<span class="sd">        :param epoch: Number of epoch.</span>
+<span class="sd">        :return: return model weights and number of data used for training.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">global_weights</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+            <span class="n">minibatch_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_data</span><span class="p">(</span><span class="n">minibatch_size</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">minibatch_data</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">train_step</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div></div>
+    
+<div class="viewcode-block" id="FedAvgServer"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgServer">[docs]</a><span class="k">class</span> <span class="nc">FedAvgServer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Server side of FederatedAveraging (FedAvg) algorithm (https://arxiv.org/pdf/1602.05629.pdf).</span>
+<span class="sd">    The implementation is based on Tensorflow.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Model</span><span class="p">],</span> <span class="n">clients</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param model_fn: Function used to create instance of model, should be the same as clients.</span>
+<span class="sd">        :param clients: List of client objects used to identify each client.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span> <span class="o">=</span> <span class="n">clients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model_fn</span><span class="p">()</span>
+        
+<div class="viewcode-block" id="FedAvgServer.send_train_request"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgServer.send_train_request">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">send_train_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Abstract method for sending training request to client.</span>
+
+<span class="sd">        :param client: Target client used for training.</span>
+<span class="sd">        :param minibatch_size: Size of minibatch used by client during training.</span>
+<span class="sd">        :param epoch: Number of epoch for training.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+    
+<div class="viewcode-block" id="FedAvgServer.train_client"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgServer.train_client">[docs]</a>    <span class="k">def</span> <span class="nf">train_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">res</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Intermediate function to call :func:`send_train_request`</span>
+
+<span class="sd">        :param client: Target client used for training.</span>
+<span class="sd">        :param minibatch_size: Size of minibatch used by client during training.</span>
+<span class="sd">        :param epoch: Number of epoch for training.</span>
+<span class="sd">        :param res: Reference to array to record the model weight returned by client.</span>
+<span class="sd">        :param idx: Index of array res to record the model weight returned by client.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_train_request</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="FedAvgServer.train"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgServer.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clients</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to train the model by calling clients using multithreading.</span>
+
+<span class="sd">        :param clients: List of client objects used to identify each client.</span>
+<span class="sd">        :param minibatch_size: Size of minibatch used by client during training.</span>
+<span class="sd">        :param epoch: Number of epoch used by client for training.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">threads</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">))]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">)):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">train_client</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">clients</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">minibatch_size</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+            <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+            <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+            
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+        <span class="n">new_weights</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span><span class="o">*</span><span class="n">number</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">))])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">new_weights</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="FedAvgServer.select_clients"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.FedAvgServer.select_clients">[docs]</a>    <span class="k">def</span> <span class="nf">select_clients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Select clients from self.clients randomly.</span>
+
+<span class="sd">        :param number: Number of client to select.</span>
+<span class="sd">        :return: List of clients object in self.clients.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">)),</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="flat_clip"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.flat_clip">[docs]</a><span class="k">def</span> <span class="nf">flat_clip</span><span class="p">(</span><span class="n">gradient</span><span class="p">:</span> <span class="n">array</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Helper function used to clip gradient with L2-norm bound of gradient_norm_bound.</span>
+
+<span class="sd">    :param gradient: The gradient to be clipepd.</span>
+<span class="sd">    :param gradient_norm_bound: L2-norm bound of gradient.</span>
+<span class="sd">    :return: The clipped gradient.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">grad</span> <span class="o">/=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">grad</span><span class="p">]))</span><span class="o">/</span><span class="n">gradient_norm_bound</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grad</span></div>
+
+<div class="viewcode-block" id="DPFedAvgClient"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgClient">[docs]</a><span class="k">class</span> <span class="nc">DPFedAvgClient</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Client side of DP-FedAvg algorithm (https://arxiv.org/pdf/1710.06963.pdf).</span>
+<span class="sd">    The implementation is based on Tensorflow.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Model</span><span class="p">],</span> <span class="n">loss_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">,</span> <span class="n">array</span><span class="p">],</span> <span class="n">array</span><span class="p">],</span> <span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param model_fn: Function used to create instance of model, should be the same as server.</span>
+<span class="sd">        :param loss_fn: Function that receives model and data batch, and return the loss value caluclated by tf.keras.losses.</span>
+<span class="sd">        :param data: Client&#39;s traning data. Each element represent one training sample.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model_fn</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">loss_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DPFedAvgClient.split_data"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgClient.split_data">[docs]</a>    <span class="k">def</span> <span class="nf">split_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Function used to split data into minibatches with size of minibatch_size.</span>
+
+<span class="sd">        :param minibatch_size: Size of minibatch.</span>
+<span class="sd">        :return: List of batches data. Each element in the list is list of data of one minibatch.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)]</span> <span class="o">*</span> <span class="n">minibatch_size</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">t</span> <span class="k">if</span> <span class="n">e</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">zip_longest</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span></div>
+    
+
+<div class="viewcode-block" id="DPFedAvgClient.train_step"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgClient.train_step">[docs]</a>    <span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minibatch</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">array</span><span class="p">,</span> <span class="nb">list</span><span class="p">],</span> <span class="n">initial_weights</span><span class="p">:</span> <span class="n">array</span><span class="p">,</span> 
+                    <span class="n">gradient_norm_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function for training the model using one minibatch.</span>
+
+<span class="sd">        :param minibatch: List of data of minibacth.</span>
+<span class="sd">        :param initial_weights: Initial global weight get from server.</span>
+<span class="sd">        :param gradient_norm_bound: L2-norm bound of gradient.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">minibatch</span><span class="p">)</span>
+            <span class="n">grads</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            
+            <span class="n">updated_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">(),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">object</span><span class="p">)</span>
+            <span class="n">updated_weights</span> <span class="o">=</span> <span class="n">initial_weights</span> <span class="o">+</span> <span class="n">flat_clip</span><span class="p">(</span><span class="n">updated_weights</span> <span class="o">-</span> <span class="n">initial_weights</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">updated_weights</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DPFedAvgClient.train"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgClient.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_weights</span><span class="p">:</span> <span class="n">array</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function for training the model.</span>
+
+<span class="sd">        :param global_weights: Global weights received from server.</span>
+<span class="sd">        :param minibatch_size: Size of a single minibatch.</span>
+<span class="sd">        :param epoch: Number of epoch.</span>
+<span class="sd">        :param gradient_norm_bound: L2-norm bound of gradient.</span>
+<span class="sd">        :return: return model gradient and number of data used for training.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">global_weights</span><span class="p">)</span>
+        <span class="n">initial_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">global_weights</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">object</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+            <span class="n">minibatch_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_data</span><span class="p">(</span><span class="n">minibatch_size</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">minibatch_data</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">train_step</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">initial_weights</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">)</span>
+                
+        <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">(),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-</span> <span class="n">initial_weights</span> 
+        <span class="k">return</span> <span class="n">grad</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div></div>
+    
+<div class="viewcode-block" id="DPFedAvgServer"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgServer">[docs]</a><span class="k">class</span> <span class="nc">DPFedAvgServer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Server side of DP-FedAvg algorithm (https://arxiv.org/pdf/1710.06963.pdf).</span>
+<span class="sd">    The implementation is based on Tensorflow.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Model</span><span class="p">],</span> <span class="n">clients</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">total_data</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param model_fn: Function used to create instance of model, should be the same as clients.</span>
+<span class="sd">        :param clients: List of client objects used to identify each client.</span>
+<span class="sd">        :param total_data: Number of total data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clients</span> <span class="o">=</span> <span class="n">clients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model_fn</span><span class="p">()</span>
+        
+        <span class="c1">#since we know len of data of client, and let w_hat = sum(n_clients), W = 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_data</span> <span class="o">=</span> <span class="n">total_data</span>
+        
+<div class="viewcode-block" id="DPFedAvgServer.send_train_request"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgServer.send_train_request">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">send_train_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Abstract method for sending training request to client.</span>
+
+<span class="sd">        :param client: Target client used for training.</span>
+<span class="sd">        :param minibatch_size: Size of minibatch used by client during training.</span>
+<span class="sd">        :param epoch: Number of epoch for training.</span>
+<span class="sd">        :param gradient_norm_bound: L2-norm bound of gradient.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DPFedAvgServer.train_client"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgServer.train_client">[docs]</a>    <span class="k">def</span> <span class="nf">train_client</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">res</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Intermediate function to call :func:`send_train_request`</span>
+
+<span class="sd">        :param client: Target client used for training.</span>
+<span class="sd">        :param minibatch_size: Size of minibatch used by client during training.</span>
+<span class="sd">        :param epoch: Number of epoch for training.</span>
+<span class="sd">        :param gradient_norm_bound: L2-norm bound of gradient.</span>
+<span class="sd">        :param res: Reference to array to record the model weight returned by client.</span>
+<span class="sd">        :param idx: Index of array res to record the model weight returned by client.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_train_request</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">)</span></div>
+    
+
+<div class="viewcode-block" id="DPFedAvgServer.train"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgServer.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clients</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">minibatch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">noise_scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function to train the model by calling clients using multithreading.</span>
+
+<span class="sd">        :param clients: List of client objects used to identify each client.</span>
+<span class="sd">        :param minibatch_size: Size of minibatch used by client during training.</span>
+<span class="sd">        :param epoch: Number of epoch used by client for training.</span>
+<span class="sd">        :param gradient_norm_bound: L2-norm bound of gradient.</span>
+<span class="sd">        :param noise_scale: Value of noise scale. Higher noise scale correspond to higher noise and lower privacy budget.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">threads</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">))]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">)):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">train_client</span><span class="p">,</span> 
+                                 <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">clients</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">minibatch_size</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">gradient_norm_bound</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+            <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+            <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+            
+        <span class="n">qW</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span> 
+        <span class="n">grad</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">number</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_data</span>
+        <span class="n">total_grad</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span><span class="o">*</span><span class="n">number</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">))])</span>
+        <span class="n">total_grad</span> <span class="o">/=</span> <span class="n">qW</span>
+        
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">noise_scale</span><span class="o">*</span><span class="n">gradient_norm_bound</span><span class="o">/</span><span class="n">qW</span>
+        <span class="n">total_grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">gaussian_noise</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">total_grad</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+        <span class="n">new_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_weights</span><span class="p">(),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">object</span><span class="p">)</span> <span class="o">+</span> <span class="n">total_grad</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">new_weights</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="DPFedAvgServer.select_clients"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgServer.select_clients">[docs]</a>    <span class="k">def</span> <span class="nf">select_clients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Select clients from self.clients randomly.</span>
+
+<span class="sd">        :param number: Number of client to select.</span>
+<span class="sd">        :return: List of clients object in self.clients.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clients</span><span class="p">)),</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="DPFedAvgServer.gaussian_noise"><a class="viewcode-back" href="../api/federated_learning/index.html#federated_learning.DPFedAvgServer.gaussian_noise">[docs]</a>    <span class="k">def</span> <span class="nf">gaussian_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">],</span> <span class="n">standard_deviation</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Helper function for adding Gaussian noise.</span>
+
+<span class="sd">        :param x: Input data</span>
+<span class="sd">        :param standard_deviation: Standard deviation of Gaussian noise.</span>
+<span class="sd">        :return: Input data with noise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+                    <span class="n">scale</span><span class="o">=</span><span class="n">standard_deviation</span><span class="p">,</span>
+                    <span class="n">size</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">noise</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, NTU SCRiPTS.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

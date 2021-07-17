@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,16 +31,17 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="private_machine_learning" href="../private_machine_learning/index.html" />
     <link rel="prev" title="private_mechanisms" href="../private_mechanisms/index.html" /> 
 </head>
 
@@ -91,6 +94,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../privacy_budget_tracker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget_tracker</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../private_mechanisms/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_mechanisms</span></code></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_table</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../private_machine_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_machine_learning</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../federated_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">federated_learning</span></code></a></li>
 </ul>
 
             
@@ -172,8 +177,8 @@
 </tbody>
 </table>
 <span class="target" id="module-private_table"></span><dl class="py class">
-<dt id="private_table.PrivateTable">
-<em class="property">class </em><code class="sig-name descname">PrivateTable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe</span></em>, <em class="sig-param"><span class="n">data_domains</span></em>, <em class="sig-param"><span class="n">total_privacy_budget</span></em>, <em class="sig-param"><span class="n">delta_prime</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">PrivateTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_domains</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_privacy_budget</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_prime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Private Table class which uses pandas dataframe as the backend.</p>
 <p>Differentially private mechanisms for a data table.</p>
@@ -191,226 +196,226 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dataframe</strong> (<em>pandas.core.frame.DataFrame</em>) – The data source</p></li>
-<li><p><strong>data_domains</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="../data_domain/index.html#data_domain.DataDomain" title="data_domain.DataDomain"><em>data_domain.DataDomain</em></a><em>]</em>) – Specify the set of all posible value for each data column. It is a map from <cite>column_name</cite> to a <cite>data_domain</cite>.</p></li>
-<li><p><strong>total_privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</p></li>
+<li><p><strong>dataframe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – The data source</p></li>
+<li><p><strong>data_domains</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataDomain</span></code>]) – Specify the set of all posible value for each data column. It is a map from <cite>column_name</cite> to a <cite>data_domain</cite>.</p></li>
+<li><p><strong>total_privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – The total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="private_table.PrivateTable.cat_hist">
-<code class="sig-name descname">cat_hist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.cat_hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.cat_hist" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.cat_hist">
+<span class="sig-name descname"><span class="pre">cat_hist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.cat_hist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.cat_hist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the histogram for a categorical column.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private histogram of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private histogram of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.check_data_domains">
-<code class="sig-name descname">check_data_domains</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">domains</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.check_data_domains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.check_data_domains" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.check_data_domains">
+<span class="sig-name descname"><span class="pre">check_data_domains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domains</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.check_data_domains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.check_data_domains" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if data in private columns are belong to the data domain <cite>domains</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>domains</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="../data_domain/index.html#data_domain.DataDomain" title="data_domain.DataDomain"><em>data_domain.DataDomain</em></a><em>]</em>) – Data domain specifications</p>
+<dd class="field-odd"><p><strong>domains</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataDomain</span></code>]) – Data domain specifications</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>True</cite> if data in the private table belonging to the <cite>domains</cite>, <cite>False</cite> otherwise</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if data in the private table belonging to the <cite>domains</cite>, <cite>False</cite> otherwise</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.gaussian_mean">
-<code class="sig-name descname">gaussian_mean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.gaussian_mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.gaussian_mean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.gaussian_mean">
+<span class="sig-name descname"><span class="pre">gaussian_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.gaussian_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.gaussian_mean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a private mean using Gaussian mechanism.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private mean of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private mean of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.max">
-<code class="sig-name descname">max</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.max" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.max">
+<span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the maximum.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private maximum of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private maximum of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.mean">
-<code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.mean" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.mean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a private mean using Laplace mechanism.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private mean of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private mean of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.median">
-<code class="sig-name descname">median</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.median"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.median" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.median" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the median.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private median of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private median of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.min">
-<code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.min"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.min" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.min">
+<span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the minimum.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private minimum of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private minimum of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.mode">
-<code class="sig-name descname">mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.mode" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private mode of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private mode of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.num_hist">
-<code class="sig-name descname">num_hist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">bins</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.num_hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.num_hist" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.num_hist">
+<span class="sig-name descname"><span class="pre">num_hist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.num_hist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.num_hist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the histogram for a categorical column.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>bins</strong> (<em>Union</em><em>[</em><em>numpy.ndarray</em><em>, </em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em>) – Bins of histogram</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>bins</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – Bins of histogram</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private histogram of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private histogram of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.std">
-<code class="sig-name descname">std</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.std" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.std" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the standard deviation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private standard deviation of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private standard deviation of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="private_table.PrivateTable.var">
-<code class="sig-name descname">var</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.var"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_table.PrivateTable.var" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_table.PrivateTable.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_table.html#PrivateTable.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_table.PrivateTable.var" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the variance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<em>str</em>) – Name of the selected column</p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – Privacy budget to be used</p></li>
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the selected column</p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – Privacy budget to be used</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private variance of the selected column</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Private variance of the selected column</p>
 </dd>
 </dl>
 </dd></dl>
@@ -425,6 +430,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../private_machine_learning/index.html" class="btn btn-neutral float-right" title="private_machine_learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../private_mechanisms/index.html" class="btn btn-neutral float-left" title="private_mechanisms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,10 +31,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -92,6 +94,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../privacy_budget_tracker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget_tracker</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../private_mechanisms/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_mechanisms</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../private_table/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_table</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../private_machine_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_machine_learning</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../federated_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_domain</span></code></a></li>
 </ul>
 
             
@@ -160,46 +164,46 @@
            <div itemprop="articleBody">
             
   <div class="section" id="data-domain">
-<h1><a class="reference internal" href="#module-data_domain" title="data_domain"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_domain</span></code></a><a class="headerlink" href="#data-domain" title="Permalink to this headline">¶</a></h1>
+<h1><a class="reference internal" href="../federated_learning/index.html#module-data_domain" title="data_domain"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_domain</span></code></a><a class="headerlink" href="#data-domain" title="Permalink to this headline">¶</a></h1>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#data_domain.DataDomain" title="data_domain.DataDomain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataDomain</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../federated_learning/index.html#data_domain.DataDomain" title="data_domain.DataDomain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataDomain</span></code></a></p></td>
 <td><p>Representing the set of all possible values for a column in the private table.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#data_domain.RealDataDomain" title="data_domain.RealDataDomain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RealDataDomain</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../federated_learning/index.html#data_domain.RealDataDomain" title="data_domain.RealDataDomain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RealDataDomain</span></code></a></p></td>
 <td><p>A range of real values: [left, right].</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#data_domain.CategoricalDataDomain" title="data_domain.CategoricalDataDomain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CategoricalDataDomain</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../federated_learning/index.html#data_domain.CategoricalDataDomain" title="data_domain.CategoricalDataDomain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CategoricalDataDomain</span></code></a></p></td>
 <td><p>A list of discrete values.</p></td>
 </tr>
 </tbody>
 </table>
 <span class="target" id="module-data_domain"></span><dl class="py class">
-<dt id="data_domain.CategoricalDataDomain">
-<em class="property">class </em><code class="sig-name descname">CategoricalDataDomain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#CategoricalDataDomain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_domain.CategoricalDataDomain" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="data_domain.CategoricalDataDomain">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">CategoricalDataDomain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#CategoricalDataDomain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_domain.CategoricalDataDomain" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of discrete values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>values</strong> (<em>Iterable</em><em>[</em><em>Any</em><em>]</em>) – List that contains all possible values of the data domain</p>
+<dd class="field-odd"><p><strong>values</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – List that contains all possible values of the data domain</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="data_domain.CategoricalDataDomain.contains">
-<code class="sig-name descname">contains</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#CategoricalDataDomain.contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_domain.CategoricalDataDomain.contains" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="data_domain.CategoricalDataDomain.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#CategoricalDataDomain.contains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_domain.CategoricalDataDomain.contains" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if value contains in the data domain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Any</em><em>]</em>) – The value to be checked</p>
+<dd class="field-odd"><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – The value to be checked</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>True</cite> if value contains in the data domain, <cite>False</cite> otherwise</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if value contains in the data domain, <cite>False</cite> otherwise</p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,8 +211,8 @@
 </dd></dl>
 
 <dl class="py class">
-<dt id="data_domain.DataDomain">
-<em class="property">class </em><code class="sig-name descname">DataDomain</code><a class="reference internal" href="../../_modules/data_domain.html#DataDomain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_domain.DataDomain" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="data_domain.DataDomain">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">DataDomain</span></span><a class="reference internal" href="../../_modules/data_domain.html#DataDomain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_domain.DataDomain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representing the set of all possible values for a column in the private table.</p>
 <p>There are two sub-types:</p>
 <ul class="simple">
@@ -218,30 +222,30 @@
 </dd></dl>
 
 <dl class="py class">
-<dt id="data_domain.RealDataDomain">
-<em class="property">class </em><code class="sig-name descname">RealDataDomain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lower_bound</span></em>, <em class="sig-param"><span class="n">upper_bound</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#RealDataDomain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_domain.RealDataDomain" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="data_domain.RealDataDomain">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">RealDataDomain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#RealDataDomain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_domain.RealDataDomain" title="Permalink to this definition">¶</a></dt>
 <dd><p>A range of real values: [left, right].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lower_bound</strong> (<em>float</em>) – Lower bound of the data domain</p></li>
-<li><p><strong>upper_bound</strong> (<em>float</em>) – Upper bound of the data domain</p></li>
+<li><p><strong>lower_bound</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Lower bound of the data domain</p></li>
+<li><p><strong>upper_bound</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Upper bound of the data domain</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="data_domain.RealDataDomain.contains">
-<code class="sig-name descname">contains</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#RealDataDomain.contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#data_domain.RealDataDomain.contains" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="data_domain.RealDataDomain.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/data_domain.html#RealDataDomain.contains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#data_domain.RealDataDomain.contains" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if value contains in the data domain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Any</em><em>]</em>) – The value to be checked</p>
+<dd class="field-odd"><p><strong>value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – The value to be checked</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><cite>True</cite> if value contains in the data domain, <cite>False</cite> otherwise</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>True</cite> if value contains in the data domain, <cite>False</cite> otherwise</p>
 </dd>
 </dl>
 </dd></dl>

@@ -7,7 +7,7 @@ class DataDomain(ABC):
     """Representing the set of all possible values for a column in the private table.
 
     There are two sub-types:
-    
+
     - RealDataDomain: a range of real value [left, right]
     - CategoricalDataDomain: a list of discrete values [a, b, c, d]
     """

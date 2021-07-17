@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,10 +31,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -92,6 +95,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../privacy_budget_tracker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget_tracker</span></code></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_mechanisms</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../private_table/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_table</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../private_machine_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_machine_learning</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../federated_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_domain</span></code></a></li>
 </ul>
 
             
@@ -182,8 +187,8 @@
 </tbody>
 </table>
 <span class="target" id="module-private_mechanisms"></span><dl class="py function">
-<dt id="private_mechanisms.exponential_mechanism">
-<code class="sig-name descname">exponential_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">score_function</span></em>, <em class="sig-param"><span class="n">sensitivity</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#exponential_mechanism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_mechanisms.exponential_mechanism" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_mechanisms.exponential_mechanism">
+<span class="sig-name descname"><span class="pre">exponential_mechanism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#exponential_mechanism"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_mechanisms.exponential_mechanism" title="Permalink to this definition">¶</a></dt>
 <dd><p>Differentially private exponantial mechanism. Each keys sampling by probability proportional to:</p>
 <div class="math notranslate nohighlight">
 \[\exp\left(\frac{\epsilon \times score}{2 \Delta f}\right)\]</div>
@@ -191,24 +196,24 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>numpy.ndarray</em>) – A sensitive data</p></li>
-<li><p><strong>score_function</strong> (<em>Callable</em><em>[</em><em>[</em><em>numpy.ndarray</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>]</em>) – a function to receive <cite>x</cite> and return a dictionary with items {<cite>element</cite>: <cite>score</cite>}</p></li>
-<li><p><strong>sensitivity</strong> (<em>float</em>) – The global sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,0)\)</span> used for the outputs</p></li>
+<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – Sensitive input data</p></li>
+<li><p><strong>score_function</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – a function to receive <cite>x</cite> and return a dictionary with items {<cite>element</cite>: <cite>score</cite>}</p></li>
+<li><p><strong>sensitivity</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The global L1-sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,0)\)</span> used for the outputs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The sampled element</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Any</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The sampled element</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="private_mechanisms.gaussian_mechanism">
-<code class="sig-name descname">gaussian_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">sensitivity</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#gaussian_mechanism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_mechanisms.gaussian_mechanism" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_mechanisms.gaussian_mechanism">
+<span class="sig-name descname"><span class="pre">gaussian_mechanism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#gaussian_mechanism"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_mechanisms.gaussian_mechanism" title="Permalink to this definition">¶</a></dt>
 <dd><p>Differentially private Gaussian mechanism. Add Gaussian noise to the value:</p>
 <div class="math notranslate nohighlight">
 \[x + Normal\left(\mu=0, \sigma=\frac{\sqrt{2\log(1.25/\delta)}\Delta f}{\epsilon} \right)\]</div>
@@ -216,23 +221,23 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>, </em><em>numpy.ndarray</em><em>]</em>) – A sensitive data</p></li>
-<li><p><strong>sensitivity</strong> (<em>float</em>) – The global sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,\delta)\)</span> used for the outputs</p></li>
+<li><p><strong>x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – Sensitive input data</p></li>
+<li><p><strong>sensitivity</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The global L2-sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,\delta)\)</span> used for the outputs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The noisy data</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Input data protected by noise</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="private_mechanisms.histogram_mechanism">
-<code class="sig-name descname">histogram_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#histogram_mechanism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_mechanisms.histogram_mechanism" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_mechanisms.histogram_mechanism">
+<span class="sig-name descname"><span class="pre">histogram_mechanism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#histogram_mechanism"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_mechanisms.histogram_mechanism" title="Permalink to this definition">¶</a></dt>
 <dd><p>Differentially private histogram mechanism. Add Laplacian noise to the value:</p>
 <div class="math notranslate nohighlight">
 \[x + Laplace\left(\mu=0, \sigma=\frac{\Delta f}{\epsilon}\right)\]</div>
@@ -240,23 +245,23 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>numpy.ndarray</em>) – A sensitive data</p></li>
-<li><p><strong>sensitivity</strong> – The global sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,0)\)</span> used for the outputs</p></li>
+<li><p><strong>x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – Sensitive input data</p></li>
+<li><p><strong>sensitivity</strong> – The global L1-sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,0)\)</span> used for the outputs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The noisy data</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Input data protected by noise</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="private_mechanisms.laplace_mechanism">
-<code class="sig-name descname">laplace_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">sensitivity</span></em>, <em class="sig-param"><span class="n">privacy_budget</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#laplace_mechanism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#private_mechanisms.laplace_mechanism" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="private_mechanisms.laplace_mechanism">
+<span class="sig-name descname"><span class="pre">laplace_mechanism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy_budget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/private_mechanisms.html#laplace_mechanism"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#private_mechanisms.laplace_mechanism" title="Permalink to this definition">¶</a></dt>
 <dd><p>Differentially private Laplace mechanism. Add Laplacian noise to the value:</p>
 <div class="math notranslate nohighlight">
 \[x + Laplace\left(\mu=0, \sigma=\frac{\Delta f}{\epsilon}\right)\]</div>
@@ -264,16 +269,16 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>, </em><em>numpy.ndarray</em><em>]</em>) – A sensitive data</p></li>
-<li><p><strong>sensitivity</strong> (<em>float</em>) – The global sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
-<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,0)\)</span> used for the outputs</p></li>
+<li><p><strong>x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – Sensitive input data</p></li>
+<li><p><strong>sensitivity</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The global L1-sensitivity <span class="math notranslate nohighlight">\(\Delta f\)</span> of <cite>x</cite></p></li>
+<li><p><strong>privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – The privacy budget <span class="math notranslate nohighlight">\((\epsilon,0)\)</span> used for the outputs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The noisy data</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Input data protected by noise</p>
 </dd>
 </dl>
 </dd></dl>

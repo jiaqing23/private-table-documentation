@@ -17,10 +17,10 @@ def laplace_mechanism(x: Union[int, float, ndarray], sensitivity: float, privacy
 
     The result guarantees :math:`(\epsilon,0)`-differential privacy.
 
-    :param x: A sensitive data
-    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`
+    :param x: Sensitive input data
+    :param sensitivity: The global L1-sensitivity :math:`\Delta f` of `x`
     :param privacy_budget: The privacy budget :math:`(\epsilon,0)` used for the outputs
-    :return: The noisy data
+    :return: Input data protected by noise
     """
     check_positive(privacy_budget.epsilon)
     check_positive(sensitivity)
@@ -38,14 +38,15 @@ def gaussian_mechanism(x: Union[int, float, ndarray], sensitivity: float, privac
 
     The result guarantees :math:`(\epsilon,\delta)`-differential privacy.
 
-    :param x: A sensitive data
-    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`
+    :param x: Sensitive input data
+    :param sensitivity: The global L2-sensitivity :math:`\Delta f` of `x`
     :param privacy_budget: The privacy budget :math:`(\epsilon,\delta)` used for the outputs
-    :return: The noisy data
+    :return: Input data protected by noise
     """
     check_positive(privacy_budget.epsilon)
     check_positive(privacy_budget.delta)
     check_positive(sensitivity)
+    assert(privacy_budget.epsilon < 1)
 
     shape = (1, ) if isinstance(x, (int, float)) else x.shape
     noise = normal(loc=0.,
@@ -56,16 +57,16 @@ def gaussian_mechanism(x: Union[int, float, ndarray], sensitivity: float, privac
 
 def histogram_mechanism(x: ndarray, privacy_budget: PrivacyBudget) -> ndarray:
     """Differentially private histogram mechanism. Add Laplacian noise to the value:
-    
+
     .. math::
             x + Laplace\left(\mu=0, \sigma=\\frac{\Delta f}{\epsilon}\\right)
 
     The result guarantees :math:`(\epsilon,0)`-differential privacy.
 
-    :param x: A sensitive data
-    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`
+    :param x: Sensitive input data
+    :param sensitivity: The global L1-sensitivity :math:`\Delta f` of `x`
     :param privacy_budget: The privacy budget :math:`(\epsilon,0)` used for the outputs
-    :return: The noisy data
+    :return: Input data protected by noise
     """
     return laplace_mechanism(x=x, sensitivity=2, privacy_budget=privacy_budget)
 
@@ -78,9 +79,9 @@ def exponential_mechanism(x: ndarray, score_function: Callable[[ndarray], ndarra
 
     The result guarantees :math:`(\epsilon,\delta)`-differential privacy.
 
-    :param x: A sensitive data
+    :param x: Sensitive input data
     :param score_function: a function to receive `x` and return a dictionary with items {`element`: `score`}
-    :param sensitivity: The global sensitivity :math:`\Delta f` of `x`
+    :param sensitivity: The global L1-sensitivity :math:`\Delta f` of `x`
     :param privacy_budget: The privacy budget :math:`(\epsilon,0)` used for the outputs
     :return: The sampled element
     """

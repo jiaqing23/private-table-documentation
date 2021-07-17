@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,10 +31,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -92,6 +95,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../privacy_budget_tracker/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">privacy_budget_tracker</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../private_mechanisms/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_mechanisms</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../private_table/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_table</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../private_machine_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">private_machine_learning</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../federated_learning/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data_domain</span></code></a></li>
 </ul>
 
             
@@ -177,8 +182,8 @@
 </table>
 <span class="target" id="module-privacy_budget"></span><p>PrivacyBudget classes.</p>
 <dl class="py class">
-<dt id="privacy_budget.PrivacyBudget">
-<em class="property">class </em><code class="sig-name descname">PrivacyBudget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">epsilon</span></em>, <em class="sig-param"><span class="n">delta</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/privacy_budget.html#PrivacyBudget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#privacy_budget.PrivacyBudget" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="privacy_budget.PrivacyBudget">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">PrivacyBudget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epsilon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/privacy_budget.html#PrivacyBudget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#privacy_budget.PrivacyBudget" title="Permalink to this definition">¶</a></dt>
 <dd><p>A <span class="math notranslate nohighlight">\((\epsilon,\delta)\)</span>-privacy budget class with useful operators:</p>
 <ul class="simple">
 <li><p><cite>less than or equal to</cite> operator.</p></li>
@@ -196,18 +201,18 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="privacy_budget.combine_privacy_losses">
-<code class="sig-name descname">combine_privacy_losses</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">losses</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/privacy_budget.html#combine_privacy_losses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#privacy_budget.combine_privacy_losses" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="privacy_budget.combine_privacy_losses">
+<span class="sig-name descname"><span class="pre">combine_privacy_losses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">losses</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/privacy_budget.html#combine_privacy_losses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#privacy_budget.combine_privacy_losses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use Theorem 3.16 in The Algorithmic Foundations of Differential Privacy to compute the total privacy loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>losses</strong> (<em>List</em><em>[</em><a class="reference internal" href="#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><em>privacy_budget.PrivacyBudget</em></a><em>]</em>) – List of privacy losses</p>
+<dd class="field-odd"><p><strong>losses</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>]) – List of privacy losses</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The total privacy loss</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget">privacy_budget.PrivacyBudget</a></p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The total privacy loss</p>
 </dd>
 </dl>
 </dd></dl>

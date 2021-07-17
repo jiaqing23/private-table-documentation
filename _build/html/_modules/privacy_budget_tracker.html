@@ -164,20 +164,20 @@
 <span class="sd">PrivacyBudgetTracker classes.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">privacy_budget</span> <span class="k">import</span> <span class="n">PrivacyBudget</span>
+<span class="kn">from</span> <span class="nn">privacy_budget</span> <span class="kn">import</span> <span class="n">PrivacyBudget</span>
 
-<span class="kn">from</span> <span class="nn">calculate_moment</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">calculate_moment</span> <span class="kn">import</span> <span class="o">*</span>
 
 <div class="viewcode-block" id="PrivacyBudgetTracker"><a class="viewcode-back" href="../api/privacy_budget_tracker/index.html#privacy_budget_tracker.PrivacyBudgetTracker">[docs]</a><span class="k">class</span> <span class="nc">PrivacyBudgetTracker</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class of privacy budget tracker.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_privacy_budget</span><span class="p">:</span> <span class="n">PrivacyBudget</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param total_privacy_budget: The total privacy budget that can be consumed by the private table. </span>
 <span class="sd">            When is there is no privacy budget left, stop answering queries.</span>

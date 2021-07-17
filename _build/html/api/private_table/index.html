@@ -197,7 +197,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dataframe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – The data source</p></li>
-<li><p><strong>data_domains</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataDomain</span></code>]) – Specify the set of all posible value for each data column. It is a map from <cite>column_name</cite> to a <cite>data_domain</cite>.</p></li>
+<li><p><strong>data_domains</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="../data_domain/index.html#data_domain.DataDomain" title="data_domain.DataDomain"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataDomain</span></code></a>]) – Specify the set of all posible value for each data column. It is a map from <cite>column_name</cite> to a <cite>data_domain</cite>.</p></li>
 <li><p><strong>total_privacy_budget</strong> (<a class="reference internal" href="../privacy_budget/index.html#privacy_budget.PrivacyBudget" title="privacy_budget.PrivacyBudget"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivacyBudget</span></code></a>) – The total privacy budget that can be consumed by the private table. When is there is no privacy budget left, stop answering queries.</p></li>
 </ul>
 </dd>
@@ -228,7 +228,7 @@
 <dd><p>Check if data in private columns are belong to the data domain <cite>domains</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>domains</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataDomain</span></code>]) – Data domain specifications</p>
+<dd class="field-odd"><p><strong>domains</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="../data_domain/index.html#data_domain.DataDomain" title="data_domain.DataDomain"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataDomain</span></code></a>]) – Data domain specifications</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>

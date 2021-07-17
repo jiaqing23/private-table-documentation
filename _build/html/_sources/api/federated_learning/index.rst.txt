@@ -1,5 +1,5 @@
 :mod:`federated_learning`
-==================
+=========================
 
 .. currentmodule:: federated_learning
 

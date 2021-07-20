@@ -160,27 +160,29 @@
            <div itemprop="articleBody">
             
   <h1>Source code for private_machine_learning</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span>
 <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">normal</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
 <span class="kn">from</span> <span class="nn">privacy_budget</span> <span class="kn">import</span> <span class="n">PrivacyBudget</span>
 <span class="kn">from</span> <span class="nn">privacy_budget_tracker</span> <span class="kn">import</span> <span class="n">MomentPrivacyBudgetTracker</span>
 
-<div class="viewcode-block" id="private_SGD"><a class="viewcode-back" href="../api/private_machine_learning/index.html#private_machine_learning.private_SGD">[docs]</a><span class="k">def</span> <span class="nf">private_SGD</span><span class="p">(</span><span class="n">gradient_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">],</span> 
-                <span class="n">get_weights_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">],</span> 
-                <span class="n">update_weights_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span> 
-                <span class="n">learning_rate_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span> 
-                <span class="n">train_data</span><span class="p">:</span> <span class="n">array</span><span class="p">,</span> 
-                <span class="n">group_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
-                <span class="n">gradient_norm_bound</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
-                <span class="n">number_of_steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
-                <span class="n">sigma</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
+
+<div class="viewcode-block" id="private_SGD"><a class="viewcode-back" href="../api/private_machine_learning/index.html#private_machine_learning.private_SGD">[docs]</a><span class="k">def</span> <span class="nf">private_SGD</span><span class="p">(</span><span class="n">gradient_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">]],</span>
+                <span class="n">get_weights_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">]],</span>
+                <span class="n">update_weights_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
+                <span class="n">learning_rate_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
+                <span class="n">train_data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">],</span>
+                <span class="n">group_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">gradient_norm_bound</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+                <span class="n">number_of_steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">sigma</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
                 <span class="n">moment_privacy_budget_tracker</span><span class="p">:</span> <span class="n">MomentPrivacyBudgetTracker</span><span class="p">,</span>
-                <span class="n">test_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+                <span class="n">test_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">test_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This Differencial Privacy(DP) SGD proposed in https://arxiv.org/pdf/1607.00133.pdf. </span>
@@ -201,45 +203,58 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">gaussian_noise</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">standard_deviation</span><span class="p">):</span>
-        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">noise</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
-                    <span class="n">scale</span><span class="o">=</span><span class="n">standard_deviation</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
+                       <span class="n">scale</span><span class="o">=</span><span class="n">standard_deviation</span><span class="p">,</span>
+                       <span class="n">size</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">noise</span>
-    
+
     <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)))</span>
     <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
-    <span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_data</span><span class="p">)[</span><span class="n">idx</span><span class="p">]</span>
     <span class="n">number_of_group</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span><span class="o">//</span><span class="n">group_size</span>
-    
+
     <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_steps</span><span class="p">):</span>
         <span class="n">group_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="n">number_of_group</span><span class="p">)</span>
         <span class="n">train_data_group</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">group_size</span><span class="o">*</span><span class="n">group_id</span><span class="p">:</span> <span class="n">group_size</span><span class="o">*</span><span class="p">(</span><span class="n">group_id</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
-        <span class="n">total_grad</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">total_grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
         <span class="n">total_loss</span> <span class="o">=</span> <span class="mi">0</span>
-        
+
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data_group</span><span class="p">)):</span>
-            <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradient_function</span><span class="p">(</span><span class="n">train_data_group</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
-            <span class="n">grad</span> <span class="o">/=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">grad</span><span class="p">]))</span><span class="o">/</span><span class="n">gradient_norm_bound</span><span class="p">)</span>
+            <span class="n">grad</span> <span class="o">=</span> <span class="n">gradient_function</span><span class="p">(</span><span class="n">train_data_group</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="n">grad</span> <span class="o">/=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">grad</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">gradient_norm_bound</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">):</span>  <span class="c1"># Either list/array or list/array of list/array</span>
+                <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+                <span class="n">grad</span> <span class="o">/=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">grad</span><span class="p">]))</span><span class="o">/</span><span class="n">gradient_norm_bound</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Data type returned by gradient_function should be either int, float, list or numpy ndarray&quot;</span><span class="p">))</span>
             <span class="n">total_grad</span> <span class="o">=</span> <span class="p">(</span><span class="n">total_grad</span> <span class="o">+</span> <span class="n">grad</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">grad</span>
-        
-        <span class="n">total_grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gaussian_noise</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">sigma</span><span class="o">*</span><span class="n">gradient_norm_bound</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">total_grad</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">total_grad</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">total_grad</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">total_grad</span> <span class="o">=</span> <span class="n">gaussian_noise</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="n">sigma</span><span class="o">*</span><span class="n">gradient_norm_bound</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">total_grad</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">total_grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gaussian_noise</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">sigma</span><span class="o">*</span><span class="n">gradient_norm_bound</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">total_grad</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">)</span>
         <span class="n">total_grad</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data_group</span><span class="p">)</span>
-        
+
         <span class="n">weights</span> <span class="o">=</span> <span class="n">get_weights_function</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)):</span>
-            <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">learning_rate_function</span><span class="p">(</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">total_grad</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">lr</span> <span class="o">=</span> <span class="n">learning_rate_function</span><span class="p">(</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">total_grad</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">-</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">total_grad</span>
         <span class="n">update_weights_function</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
-        
-        <span class="k">if</span> <span class="n">test_function</span> <span class="ow">and</span> <span class="n">test_interval</span> <span class="ow">and</span> <span class="n">step</span><span class="o">%</span><span class="n">test_interval</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">test_function</span> <span class="ow">and</span> <span class="n">test_interval</span> <span class="ow">and</span> <span class="p">(</span><span class="n">step</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">test_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">test_function</span><span class="p">()</span>
 
-    <span class="n">moment_privacy_budget_tracker</span><span class="o">.</span><span class="n">update_privacy_loss</span><span class="p">(</span><span class="n">sampling_ratio</span> <span class="o">=</span><span class="n">group_size</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span> 
-                                                        <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span><span class="p">,</span> 
-                                                        <span class="n">steps</span> <span class="o">=</span> <span class="n">number_of_steps</span><span class="p">,</span> 
-                                                        <span class="n">moment_order</span> <span class="o">=</span> <span class="mi">32</span> <span class="p">,</span> 
-                                                        <span class="n">target_delta</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">))</span></div>
+    <span class="n">moment_privacy_budget_tracker</span><span class="o">.</span><span class="n">update_privacy_loss</span><span class="p">(</span><span class="n">sampling_ratio</span><span class="o">=</span><span class="n">group_size</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">),</span>
+                                                      <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+                                                      <span class="n">steps</span><span class="o">=</span><span class="n">number_of_steps</span><span class="p">,</span>
+                                                      <span class="n">moment_order</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                                                      <span class="n">target_delta</span><span class="o">=</span><span class="mf">0.5</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

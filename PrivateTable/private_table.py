@@ -139,7 +139,7 @@ class PrivateTable:
         assert isinstance(domain, RealDataDomain)
 
         var = np.var(self._dataframe[column])
-        sensitivity = domain.length()**2/len(self._dataframe[column]) #(H-L)^2/N 
+        sensitivity = domain.length()**2/len(self._dataframe[column])  # (H-L)^2/N
         noisy_var = laplace_mechanism(var, sensitivity, privacy_budget)
 
         self.privacy_budget_tracker.update_privacy_loss(privacy_budget)

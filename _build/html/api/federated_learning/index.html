@@ -196,8 +196,8 @@ The implementation is based on Tensorflow.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_fn</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[], <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code>]) – Function used to create instance of model, should be the same as server.</p></li>
-<li><p><strong>loss_fn</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>]) – Function that receives model and data batch, and return the loss value caluclated by tf.keras.losses.</p></li>
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>) – Client’s traning data. Each element represent one training sample.</p></li>
+<li><p><strong>loss_fn</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – Function that receives model and data batch, and return the loss value caluclated by tf.keras.losses.</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – Client’s traning data. Each element represent one training sample.</p></li>
 </ul>
 </dd>
 </dl>
@@ -225,7 +225,7 @@ The implementation is based on Tensorflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>global_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – Global weights received from server.</p></li>
+<li><p><strong>global_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – Global weights received from server.</p></li>
 <li><p><strong>minibatch_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Size of a single minibatch.</p></li>
 <li><p><strong>epoch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of epoch.</p></li>
 <li><p><strong>gradient_norm_bound</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – L2-norm bound of gradient.</p></li>
@@ -244,8 +244,8 @@ The implementation is based on Tensorflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>minibatch</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – List of data of minibacth.</p></li>
-<li><p><strong>initial_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – Initial global weight get from server.</p></li>
+<li><p><strong>minibatch</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – List of data of minibacth.</p></li>
+<li><p><strong>initial_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – Initial global weight get from server.</p></li>
 <li><p><strong>gradient_norm_bound</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – L2-norm bound of gradient.</p></li>
 </ul>
 </dd>
@@ -364,8 +364,8 @@ The implementation is based on Tensorflow.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_fn</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[], <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code>]) – Function used to create instance of model, should be the same as server.</p></li>
-<li><p><strong>loss_fn</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>]) – Function that receives model and data batch, and return the loss value caluclated by tf.keras.losses.</p></li>
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>) – Client’s traning data. Each element represent one training sample.</p></li>
+<li><p><strong>loss_fn</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – Function that receives model and data batch, and return the loss value caluclated by tf.keras.losses.</p></li>
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – Client’s traning data. Each element represent one training sample.</p></li>
 </ul>
 </dd>
 </dl>
@@ -393,7 +393,7 @@ The implementation is based on Tensorflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>global_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – Global weights received from server.</p></li>
+<li><p><strong>global_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – Global weights received from server.</p></li>
 <li><p><strong>minibatch_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Size of a single minibatch.</p></li>
 <li><p><strong>epoch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of epoch.</p></li>
 </ul>
@@ -410,7 +410,7 @@ The implementation is based on Tensorflow.</p>
 <dd><p>Function for training the model using one minibatch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>minibatch</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – List of data of minibacth.</p>
+<dd class="field-odd"><p><strong>minibatch</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – List of data of minibacth.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -503,12 +503,12 @@ The implementation is based on Tensorflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>gradient</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – The gradient to be clipepd.</p></li>
+<li><p><strong>gradient</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – The gradient to be clipepd.</p></li>
 <li><p><strong>gradient_norm_bound</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – L2-norm bound of gradient.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The clipped gradient.</p>

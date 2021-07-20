@@ -84,9 +84,9 @@ def integral_bounded(fn, lb, ub):
 
 
 def distributions(sigma, q):
-    mu0 = lambda y: pdf_gauss(y, sigma=sigma, mean=0.0)
-    mu1 = lambda y: pdf_gauss(y, sigma=sigma, mean=1.0)
-    mu = lambda y: (1 - q) * mu0(y) + q * mu1(y)
+    def mu0(y): return pdf_gauss(y, sigma=sigma, mean=0.0)
+    def mu1(y): return pdf_gauss(y, sigma=sigma, mean=1.0)
+    def mu(y): return (1 - q) * mu0(y) + q * mu1(y)
     return mu0, mu1, mu
 
 
@@ -108,33 +108,33 @@ def compute_a(sigma, q, lmbd, verbose=False):
         a_lambda_second_term_exact += coef_i * s2
 
     a_lambda_exact = ((1.0 - q) * a_lambda_first_term_exact +
-                                        q * a_lambda_second_term_exact)
+                      q * a_lambda_second_term_exact)
     if verbose:
-        print ("A: by binomial expansion        {} = {} + {}".format(
-                a_lambda_exact,
-                (1.0 - q) * a_lambda_first_term_exact,
-                q * a_lambda_second_term_exact))
+        print("A: by binomial expansion        {} = {} + {}".format(
+            a_lambda_exact,
+            (1.0 - q) * a_lambda_first_term_exact,
+            q * a_lambda_second_term_exact))
     return _to_np_float64(a_lambda_exact)
 
 
 def compute_b(sigma, q, lmbd, verbose=False):
     mu0, _, mu = distributions(sigma, q)
 
-    b_lambda_fn = lambda z: mu0(z) * np.power(cropped_ratio(mu0(z), mu(z)), lmbd)
+    def b_lambda_fn(z): return mu0(z) * np.power(cropped_ratio(mu0(z), mu(z)), lmbd)
     b_lambda = integral_inf(b_lambda_fn)
     m = sigma ** 2 * (np.log((2. - q) / (1. - q)) + 1. / (2 * sigma ** 2))
 
-    b_fn = lambda z: (np.power(mu0(z) / mu(z), lmbd) -
-                                        np.power(mu(-z) / mu0(z), lmbd))
+    def b_fn(z): return (np.power(mu0(z) / mu(z), lmbd) -
+                         np.power(mu(-z) / mu0(z), lmbd))
     if verbose:
-        print ("M =", m)
-        print ("f(-M) = {} f(M) = {}".format(b_fn(-m), b_fn(m)))
+        print("M =", m)
+        print("f(-M) = {} f(M) = {}".format(b_fn(-m), b_fn(m)))
         assert b_fn(-m) < 0 and b_fn(m) < 0
 
-    b_lambda_int1_fn = lambda z: (mu0(z) *
-                                                                np.power(cropped_ratio(mu0(z), mu(z)), lmbd))
-    b_lambda_int2_fn = lambda z: (mu0(z) *
-                                                                np.power(cropped_ratio(mu(z), mu0(z)), lmbd))
+    def b_lambda_int1_fn(z): return (mu0(z) *
+                                     np.power(cropped_ratio(mu0(z), mu(z)), lmbd))
+    def b_lambda_int2_fn(z): return (mu0(z) *
+                                     np.power(cropped_ratio(mu(z), mu0(z)), lmbd))
     b_int1 = integral_bounded(b_lambda_int1_fn, -m, m)
     b_int2 = integral_bounded(b_lambda_int2_fn, -m, m)
 
@@ -142,9 +142,9 @@ def compute_b(sigma, q, lmbd, verbose=False):
     b_bound = a_lambda_m1 + b_int1 - b_int2
 
     if verbose:
-        print ("B: by numerical integration", b_lambda)
-        print ("B must be no more than         ", b_bound)
-    print (b_lambda, b_bound)
+        print("B: by numerical integration", b_lambda)
+        print("B must be no more than         ", b_bound)
+    print(b_lambda, b_bound)
     return _to_np_float64(b_lambda)
 
 
@@ -155,7 +155,7 @@ def compute_b(sigma, q, lmbd, verbose=False):
 
 def pdf_gauss_mp(x, sigma, mean):
     return mp.mpf(1.) / mp.sqrt(mp.mpf("2.") * sigma ** 2 * mp.pi) * mp.exp(
-            - (x - mean) ** 2 / (mp.mpf("2.") * sigma ** 2))
+        - (x - mean) ** 2 / (mp.mpf("2.") * sigma ** 2))
 
 
 def integral_inf_mp(fn):
@@ -169,9 +169,9 @@ def integral_bounded_mp(fn, lb, ub):
 
 
 def distributions_mp(sigma, q):
-    mu0 = lambda y: pdf_gauss_mp(y, sigma=sigma, mean=mp.mpf(0))
-    mu1 = lambda y: pdf_gauss_mp(y, sigma=sigma, mean=mp.mpf(1))
-    mu = lambda y: (1 - q) * mu0(y) + q * mu1(y)
+    def mu0(y): return pdf_gauss_mp(y, sigma=sigma, mean=mp.mpf(0))
+    def mu1(y): return pdf_gauss_mp(y, sigma=sigma, mean=mp.mpf(1))
+    def mu(y): return (1 - q) * mu0(y) + q * mu1(y)
     return mu0, mu1, mu
 
 
@@ -181,9 +181,9 @@ def compute_a_mp(sigma, q, lmbd, verbose=False):
         return 1.0
 
     mu0, mu1, mu = distributions_mp(sigma, q)
-    a_lambda_fn = lambda z: mu(z) * (mu(z) / mu0(z)) ** lmbd_int
-    a_lambda_first_term_fn = lambda z: mu0(z) * (mu(z) / mu0(z)) ** lmbd_int
-    a_lambda_second_term_fn = lambda z: mu1(z) * (mu(z) / mu0(z)) ** lmbd_int
+    def a_lambda_fn(z): return mu(z) * (mu(z) / mu0(z)) ** lmbd_int
+    def a_lambda_first_term_fn(z): return mu0(z) * (mu(z) / mu0(z)) ** lmbd_int
+    def a_lambda_second_term_fn(z): return mu1(z) * (mu(z) / mu0(z)) ** lmbd_int
 
     a_lambda = integral_inf_mp(a_lambda_fn)
     a_lambda_first_term = integral_inf_mp(a_lambda_first_term_fn)
@@ -191,9 +191,9 @@ def compute_a_mp(sigma, q, lmbd, verbose=False):
 
     if verbose:
         print("A: by numerical integration {} = {} + {}".format(
-                a_lambda,
-                (1 - q) * a_lambda_first_term,
-                q * a_lambda_second_term))
+            a_lambda,
+            (1 - q) * a_lambda_first_term,
+            q * a_lambda_second_term))
 
     return _to_np_float64(a_lambda)
 
@@ -205,19 +205,19 @@ def compute_b_mp(sigma, q, lmbd, verbose=False):
 
     mu0, _, mu = distributions_mp(sigma, q)
 
-    b_lambda_fn = lambda z: mu0(z) * (mu0(z) / mu(z)) ** lmbd_int
+    def b_lambda_fn(z): return mu0(z) * (mu0(z) / mu(z)) ** lmbd_int
     b_lambda = integral_inf_mp(b_lambda_fn)
 
     m = sigma ** 2 * (mp.log((2 - q) / (1 - q)) + 1 / (2 * (sigma ** 2)))
-    b_fn = lambda z: ((mu0(z) / mu(z)) ** lmbd_int -
-                                        (mu(-z) / mu0(z)) ** lmbd_int)
+    def b_fn(z): return ((mu0(z) / mu(z)) ** lmbd_int -
+                         (mu(-z) / mu0(z)) ** lmbd_int)
     if verbose:
-        print ("M =", m)
-        print ("f(-M) = {} f(M) = {}".format(b_fn(-m), b_fn(m)))
+        print("M =", m)
+        print("f(-M) = {} f(M) = {}".format(b_fn(-m), b_fn(m)))
         assert b_fn(-m) < 0 and b_fn(m) < 0
 
-    b_lambda_int1_fn = lambda z: mu0(z) * (mu0(z) / mu(z)) ** lmbd_int
-    b_lambda_int2_fn = lambda z: mu0(z) * (mu(z) / mu0(z)) ** lmbd_int
+    def b_lambda_int1_fn(z): return mu0(z) * (mu0(z) / mu(z)) ** lmbd_int
+    def b_lambda_int2_fn(z): return mu0(z) * (mu(z) / mu0(z)) ** lmbd_int
     b_int1 = integral_bounded_mp(b_lambda_int1_fn, -m, m)
     b_int2 = integral_bounded_mp(b_lambda_int2_fn, -m, m)
 
@@ -225,8 +225,8 @@ def compute_b_mp(sigma, q, lmbd, verbose=False):
     b_bound = a_lambda_m1 + b_int1 - b_int2
 
     if verbose:
-        print ("B by numerical integration", b_lambda)
-        print ("B must be no more than        ", b_bound)
+        print("B by numerical integration", b_lambda)
+        print("B must be no more than        ", b_bound)
     assert b_lambda < b_bound + 1e-5
     return _to_np_float64(b_lambda)
 

@@ -6,7 +6,6 @@ from typing import Iterable, List
 
 import pandas as pd
 
-import private_mechanisms
 
 def check_positive(x: float):
     assert x > 0, "expected a positive value."
